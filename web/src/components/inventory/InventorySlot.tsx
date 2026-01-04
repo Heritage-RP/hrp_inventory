@@ -44,13 +44,13 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
       item: () =>
         isSlotWithItem(item, inventoryType !== InventoryType.SHOP)
           ? {
-              inventory: inventoryType,
-              item: {
-                name: item.name,
-                slot: item.slot,
-              },
-              image: item?.name && `url(${getItemUrl(item) || 'none'}`,
-            }
+            inventory: inventoryType,
+            item: {
+              name: item.name,
+              slot: item.slot,
+            },
+            image: item?.name && `url(${getItemUrl(item) || 'none'}`,
+          }
           : null,
       canDrag,
     }),
@@ -119,22 +119,51 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
 
   const refs = useMergeRefs([connectRef, ref]);
 
+  // Clothing slot labels mapping
+  const clothingSlotLabels: { [key: number]: string } = {
+    31: 'Hat',
+    32: 'Undershirt',
+    33: 'Jacket',
+    34: 'Armor',
+    35: 'Gloves',
+    36: 'Pants',
+    37: 'Shoes',
+    38: 'Mask',
+    39: 'Glasses',
+    40: 'Earrings',
+    41: 'Chain',
+    42: 'Bracelet',
+    43: 'Watch',
+    44: 'Bag',
+  };
+
+  const isClothingSlot = inventoryType === 'player' && item.slot >= 31 && item.slot <= 44;
+
   return (
     <div
       ref={refs}
       onContextMenu={handleContext}
       onClick={handleClick}
-      className="inventory-slot"
+      className={isClothingSlot ? "inventory-slot-clothing " + item.slot : "inventory-slot"}
       style={{
         filter:
           !canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) || !canCraftItem(item, inventoryType)
             ? 'brightness(80%) grayscale(100%)'
             : undefined,
         opacity: isDragging ? 0.4 : 1.0,
-        backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'}`,
-        border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
+        backgroundImage: isClothingSlot && (!item?.name)
+          ? `url(nui://ox_inventory/web/images/c-icons/${item.slot}.png)`
+          : `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'})`,
+        border: isOver ? '1px solid rgba(255,255,255,0.4)' : '',
+        backgroundSize: isClothingSlot ? '4.5vh' : '5.5vh'
       }}
     >
+      {/* Show label for empty clothing slots */}
+      {isClothingSlot && !isSlotWithItem(item) && (
+        <div className="clothing-slot-label">
+          {clothingSlotLabels[item.slot] || ''}
+        </div>
+      )}
       {isSlotWithItem(item) && (
         <div
           className="item-slot-wrapper"
@@ -156,17 +185,16 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
               inventoryType === 'player' && item.slot <= 5 ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'
             }
           >
-            {inventoryType === 'player' && item.slot <= 5 && <div className="inventory-slot-number">{item.slot}</div>}
             <div className="item-slot-info-wrapper">
               <p>
                 {item.weight > 0
                   ? item.weight >= 1000
                     ? `${(item.weight / 1000).toLocaleString('en-us', {
-                        minimumFractionDigits: 2,
-                      })}kg `
+                      minimumFractionDigits: 2,
+                    })}kg `
                     : `${item.weight.toLocaleString('en-us', {
-                        minimumFractionDigits: 0,
-                      })}g `
+                      minimumFractionDigits: 0,
+                    })}g `
                   : ''}
               </p>
               <p>{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</p>
@@ -210,7 +238,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
                 )}
               </>
             )}
-            <div className="inventory-slot-label-box">
+            <div className={inventoryType === 'player' && item.slot <= 5 ? "inventory-slot-label-box" : "inventory-slot-label-box"}>
               <div className="inventory-slot-label-text">
                 {item.metadata?.label ? item.metadata.label : Items[item.name]?.label || item.name}
               </div>
@@ -218,6 +246,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
           </div>
         </div>
       )}
+      {inventoryType === 'player' && item.slot <= 5 && <div className="inventory-slot-number">{item.slot}</div>}
     </div>
   );
 };

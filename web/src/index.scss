@@ -1,6 +1,6 @@
 $mainColor: #22232c;
 $textColor: #c1c2c5;
-$mainFont: Roboto;
+$mainFont: 'Gilroy-Regular', sans-serif;
 
 $secondaryColor: rgba(12, 12, 12, 0.4);
 $secondaryColorHighlight: #33343F;
@@ -10,8 +10,38 @@ $secondaryColorDark: rgba(12, 12, 12, 0.8);
 $gridCols: 5;
 $gridRows: 5;
 $gridSize: 10.2vh;
-$gridGap: 2px;
-$containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+$gridGap: 10px;
+$containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * -2px);
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  src: local('Gilroy-Bold'), url(nui://ox_inventory/web/fonts/Gilroy-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: local('Gilroy-Medium'), url(nui://ox_inventory/web/fonts/Gilroy-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Regular';
+  src: local('Gilroy-Regular'), url(nui://ox_inventory/web/fonts/Gilroy-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Light';
+  src: local('Gilroy-Light'), url(nui://ox_inventory/web/fonts/Gilroy-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Thin';
+  src: local('Gilroy-Thin'), url(nui://ox_inventory/web/fonts/Gilroy-Thin.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-SemiBold';
+  src: local('Gilroy-SemiBold'), url(nui://ox_inventory/web/fonts/Gilroy-SemiBold.ttf) format('truetype');
+}
 
 body {
   margin: 0;
@@ -58,19 +88,17 @@ input[type='number']::-webkit-outer-spin-button {
 
 .context-menu-list {
   min-width: 200px;
-  background-color: $mainColor;
   color: $textColor;
   padding: 4px;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
-  border-radius: 4px;
+  background-color: rgb(12 12 12 / 55%);
+  border: 0.5px solid #ffffff15;
+  border-radius: 6px;
   outline: none;
   display: flex;
   flex-direction: column;
 }
 
-.context-menu-item  {
+.context-menu-item {
   padding: 8px;
   border-radius: 4px;
   background-color: transparent;
@@ -80,11 +108,13 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   &:active {
     transform: none;
   }
+
   &:hover {
-    background-color: $secondaryColorHighlight;
+    background-color: rgb(12 12 12 / 66%);
     cursor: pointer;
   }
 }
@@ -93,7 +123,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding-top: 5px;
 }
 
-.tooltip-markdown > p {
+.tooltip-markdown>p {
   margin: 0;
 }
 
@@ -117,55 +147,75 @@ button:active {
 
 .inventory-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
 
-  gap: 20px;
+  background: rgba(20, 21, 24, 0.9);
+  gap: 40px;
+}
+
+.inventory-wrapper2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+
+.ButtonRow {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }
 
 .inventory-control {
   display: flex;
+  align-self: center;
 
   .inventory-control-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
     align-items: center;
   }
 
   .inventory-control-input {
     transition: 200ms;
-    padding: 16px 8px;
+    padding: 5px 0px;
     border-radius: 2.5%;
     font-family: $mainFont;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     outline: none;
     border: none;
-    color: #fff;
-    background-color: $secondaryColor;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: #ffffff00;
+    border: 0.5px dashed rgba(255, 255, 255, .08);
+    width: 6vw;
+    border-radius: 6px;
+
     &:focus-within {
-      background-color: $secondaryColorDark;
+      background-color: #ffffff00;
     }
   }
 
   .inventory-control-button {
     font-size: 14px;
-    color: #fff;
-    background-color: $secondaryColor;
+    color: rgba(255, 255, 255, 1);
+    background-color: #0003;
+    border-radius: 6px;
+    border: 0.5px solid #ffffff15;
     transition: 200ms;
     padding: 12px 8px;
-    border-radius: 2.5%;
-    border: none;
     text-transform: uppercase;
-    font-family: $mainFont;
-    width: 100%;
-    font-weight: 500;
+    font-family: "Gilroy-Medium", sans-serif;
+    width: 7vw;
+
     &:hover {
-      background-color: $secondaryColorDark;
+      background-color: rgba(255, 255, 255, 0.05);
     }
   }
 }
@@ -206,6 +256,7 @@ button:active {
   align-items: center;
   border-radius: 4px;
   fill: $textColor;
+
   &:hover {
     background-color: $secondaryColorHighlight;
     cursor: pointer;
@@ -239,6 +290,7 @@ button:active {
   fill: white;
   border-radius: 5% !important;
   background-color: $secondaryColor !important;
+
   &:hover {
     background-color: $secondaryColorDark !important;
     cursor: pointer;
@@ -255,55 +307,106 @@ button:active {
 
 // Dialog is used fro useful controls window
 
+//
 
 // inventory grids
 .inventory-grid-wrapper {
   display: flex;
   flex-direction: column;
-  gap: calc($gridGap * 2);
+  gap: 7px;
+  margin-bottom: -5px;
+  margin-left: 2vw;
 }
+
+.inventory-grid-wrapper-user {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
 .inventory-grid-header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  p {
-    font-size: 16px;
-  }
+  align-items: flex-end;
+  padding-bottom: 10px;
+}
+
+.inventory-grid-header-wrapper-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 10px;
+}
+
+.inventory-grid-container-user {
+  display: grid;
+  height: calc(52.1vh + 96px);
+  grid-template-columns: repeat(5, 95px);
+  grid-auto-rows: 95px;
+  gap: 0;
+  overflow-y: scroll;
+  width: 65rem;
 }
 
 .inventory-grid-container {
   display: grid;
-  height: $containerSize;
-  grid-template-columns: repeat($gridCols, $gridSize);
-  grid-auto-rows: $gridSize + 0.22vh;
-  gap: $gridGap;
+  height: calc(52.1vh + 96px);
+  grid-template-columns: repeat($gridCols, 95px);
+  grid-auto-rows: 95px;
+  gap: 10px;
   overflow-y: scroll;
 }
 
 // inventory slots
 .inventory-slot {
-  background-color: $secondaryColor;
+  background-color: rgba(0, 0, 0, 0.2);
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2.5%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
-  background-size: 7vh;
-  color: $textColor;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
+  background-size: 6.5vh;
+  color: rgba(255, 255, 255, 0.65);
+  border-radius: 6px;
+  border: 0.5px solid #ffffff15;
+}
+
+.inventory-slot-clothing {
+  background-color: rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: -webkit-optimize-contrast;
+  position: relative;
+  background-size: 6.5vh;
+  color: rgba(255, 255, 255, 0.65);
+  border-radius: 6px;
+  border: 0.5px dashed #ffffff15;
+}
+
+.clothing-slot-label {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9px;
+  font-family: 'Gilroy-Light', sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 2px 0;
+  border-radius: 0 0 6px 6px;
 }
 
 .inventory-slot-label-box {
-  background-color: $mainColor;
-  color: $textColor;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.65);
   text-align: center;
-  border-bottom-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  border-top-color: rgba(0, 0, 0, 0.2);
-  border-top-style: inset;
-  border-top-width: 1px;
+}
+
+.inventory-slot-label-box-no {
+  display: none;
 }
 
 .inventory-slot-label-text {
@@ -312,20 +415,23 @@ button:active {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 2px 3px;
-  font-weight: 400;
-  font-family: $mainFont;
-  font-size: 12px;
+  font-family: 'Gilroy-Light', sans-serif;
+  font-size: 10px;
 }
 
 .inventory-slot-number {
-  background-color: white;
-  color: black;
-  height: 12px;
-  border-top-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
+  background-color: #ffffff0d;
+  color: #fff;
+  height: 15px;
+  width: 15px;
   padding: 3px;
   font-size: 12px;
-  font-family: $mainFont;
+  font-family: 'Gilroy-SemiBold', sans-serif;
+  left: 72px;
+  text-align: center;
+  top: 0;
+  position: absolute;
+  border-radius: 6px;
 }
 
 .item-slot-wrapper {
@@ -333,6 +439,7 @@ button:active {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
   p {
     font-size: 12px;
   }
@@ -353,8 +460,9 @@ button:active {
   display: flex;
   flex-direction: row;
   align-self: flex-end;
-  padding: 3px;
+  padding: 5px;
   gap: 3px;
+
   p {
     font-size: 12px;
   }
@@ -366,6 +474,7 @@ button:active {
   justify-content: flex-end;
   align-items: center;
   padding-right: 3px;
+
   p {
     font-size: 14px;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
@@ -377,6 +486,7 @@ button:active {
   flex-direction: row;
   justify-content: flex-end;
   padding-right: 3px;
+
   p {
     font-size: 14px;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
@@ -387,17 +497,17 @@ button:active {
 .tooltip-wrapper {
   pointer-events: none;
   display: flex;
-  background-color: $mainColor;
   width: 200px;
   padding: 8px;
   flex-direction: column;
   min-width: 200px;
-  color: $textColor;
-  font-family: $mainFont;
-  border-radius: 4px;
+  color: rgb(193, 194, 197);
+  font-family: 'Gilroy-Regular', sans-serif;
   border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
+  border-radius: 6px;
+  background: linear-gradient(358deg, rgb(21 53 80 / 15%) 0%, rgb(0 0 0 / 40%) 100%);
+  border: 1px solid rgb(255 255 255 / 11%);
+
   p {
     font-size: 12px;
     font-weight: 400;
@@ -409,6 +519,7 @@ button:active {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   p {
     font-size: 15px;
     font-weight: 400;
@@ -420,9 +531,11 @@ button:active {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
   svg {
     padding-right: 3px;
   }
+
   p {
     font-size: 14px;
   }
@@ -436,6 +549,7 @@ button:active {
   display: flex;
   flex-direction: row;
   align-items: center;
+
   img {
     width: 28px;
     height: 28px;
@@ -490,6 +604,7 @@ button:active {
   border-top-left-radius: 0.25vh;
   border-top-right-radius: 0.25vh;
   font-family: $mainFont;
+
   p {
     font-size: 11px;
     padding: 2px;
@@ -510,11 +625,14 @@ button:active {
 }
 
 .weight-bar {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 0.8vh;
+  background: rgba(0, 0, 0, 0.3);
+  border: 0px solid rgba(255, 255, 255, 0.2);
+  height: 0.5vh;
   border-radius: 5%;
   overflow: hidden;
+  flex: 1;
+  margin-bottom: 8px;
+  border-radius: 10px;
 }
 
 .transition-fade-enter {
@@ -551,4 +669,180 @@ button:active {
 .transition-slide-up-exit-active {
   transform: translateY(200px);
   transition: all 200ms;
+}
+
+.RegularSlots {
+  display: grid;
+  height: calc(52.1vh + 10px);
+  grid-template-columns: repeat(5, 95px);
+  grid-auto-rows: 95px;
+  gap: 10px;
+  margin-left: 26.5vw;
+}
+
+.ClothingSlots {
+  display: flex;
+  gap: 25px;
+  overflow: auto;
+  position: fixed;
+}
+
+.Clothing1,
+.Clothing2 {
+  display: grid;
+  grid-template-columns: 88px;
+  grid-auto-rows: 88px;
+  gap: 8px;
+}
+
+.Clothing3 {
+  display: grid;
+  grid-template-columns: 75px;
+  grid-auto-rows: 75px;
+  gap: 8px;
+}
+
+.WeightText {
+  font-size: 14px;
+  font-family: "Gilroy-Thin", sans-serif;
+  padding-left: 10px;
+  margin-bottom: 6px;
+}
+
+.LabelText {
+  font-size: 20px;
+  font-family: "Gilroy-Light", sans-serif;
+  padding-right: 10px;
+}
+
+.HotSlotLabel {
+  position: absolute;
+  bottom: 34.4vh;
+  font-size: 21px;
+  font-family: "Gilroy-Medium", sans-serif;
+}
+
+.iconWrapper {
+  display: inline-flex;
+  /* Use flexbox for easier vertical alignment */
+  align-items: center;
+  /* Vertically center items */
+  justify-content: center;
+  /* Horizontally center items */
+  background-color: #008cff;
+  padding: 6px;
+  border-radius: 5px;
+  margin-right: 12px;
+  box-shadow: 0px 2px 20px 4px #008cff7d;
+  width: 20px;
+  /* Width of the rectangle */
+  height: 20px;
+  /* Height of the rectangle */
+}
+
+.iconWrapper2 {
+  display: inline-flex;
+  /* Use flexbox for easier vertical alignment */
+  align-items: center;
+  /* Vertically center items */
+  justify-content: center;
+  /* Horizontally center items */
+  background-color: #008cff;
+  padding: 6px;
+  border-radius: 5px;
+  margin-right: 12px;
+  box-shadow: 0px 2px 20px 4px #008cff7d;
+  width: 25px;
+  /* Width of the rectangle */
+  height: 25px;
+  /* Height of the rectangle */
+}
+
+.iconWrapper svg {
+  font-size: 15px;
+  /* Adjust the size of the icon */
+}
+
+.WeightBarWrap {
+  height: 4px;
+  flex: 1;
+  padding-bottom: 8px;
+}
+
+.WeightBarWrap2 {
+  height: 5px;
+  flex: 1;
+  padding-bottom: 8px;
+}
+
+.LabelName {
+  display: flex;
+  align-items: center;
+  width: 26.5vw;
+  font-size: 25px;
+  font-family: 'Gilroy-Regular', sans-serif;
+  padding-left: 6px;
+}
+
+@media screen and (max-width: 1700px) {
+  .RegularSlots {
+    margin-left: 32.5vw;
+  }
+
+  .LabelName {
+    width: 32.5vw;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .RegularSlots {
+    grid-template-columns: repeat(5, 65px);
+    grid-auto-rows: 65px;
+    margin-left: 31.5vw;
+  }
+
+  .LabelName {
+    width: 31.5vw;
+  }
+
+  .Clothing1,
+  .Clothing2 {
+    grid-template-columns: 58px;
+    grid-auto-rows: 58px;
+  }
+
+  .inventory-grid-container {
+    grid-template-columns: repeat(5, 65px);
+    grid-auto-rows: 65px;
+  }
+
+  .inventory-grid-container-user {
+    width: 53rem;
+  }
+
+  .inventory-slot-number {
+    height: 7px;
+    width: 7px;
+    font-size: 6px;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .RegularSlots {
+    margin-left: 20.5vw;
+  }
+
+  .LabelName {
+    width: 20.5vw;
+  }
+}
+
+@media screen and (min-width: 3400px) {
+  .RegularSlots {
+    margin-left: 15vw;
+  }
+
+  .LabelName {
+    width: 15vw;
+  }
 }

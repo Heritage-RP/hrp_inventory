@@ -222,4 +222,89 @@ return {
 		label = 'Scrap Metal',
 		weight = 80,
 	},
+
+	-- Clothing items for inventory slots
+	['mask'] = {
+		label = 'Mask',
+		weight = 100,
+		stack = false,
+	},
+
+	['hat'] = {
+		label = 'Hat',
+		weight = 100,
+		stack = false,
+	},
+
+	['earrings'] = {
+		label = 'Earrings',
+		weight = 100,
+		stack = false,
+	},
+
+	['glasses'] = {
+		label = 'Glasses',
+		weight = 100,
+		stack = false,
+	},
+
+	['chain'] = {
+		label = 'Chain',
+		weight = 100,
+		stack = false,
+	},
+
+	['undershirt'] = {
+		label = 'Undershirt',
+		weight = 100,
+		stack = false,
+	},
+
+	['jacket'] = {
+		label = 'Jacket',
+		weight = 100,
+		stack = false,
+	},
+
+	['bodyarmor'] = {
+		label = 'Body Armor',
+		weight = 100,
+		stack = false,
+	},
+
+	['bracelet'] = {
+		label = 'Bracelet',
+		weight = 100,
+		stack = false,
+	},
+
+	['watch'] = {
+		label = 'Watch',
+		weight = 100,
+		stack = false,
+	},
+
+	['bag'] = {
+		label = 'Bag',
+		weight = 100,
+		stack = false,
+	},
+
+	['pants'] = {
+		label = 'Pants',
+		weight = 100,
+		stack = false,
+	},
+
+	['shoes'] = {
+		label = 'Shoes',
+		weight = 100,
+		stack = false,
+	},
+
+	['gloves'] = {
+		label = 'Gloves',
+		weight = 100,
+		stack = false,
+	},
 }
