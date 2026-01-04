@@ -1,17 +1,29 @@
-$mainColor: #22232c;
-$textColor: #c1c2c5;
-$mainFont: 'Gilroy-Regular', sans-serif;
+// Pip-Boy Terminal Theme (matching hrp-character-selector)
+$pip-green: #1aff80;
+$pip-green-dim: #0d7a3e;
+$pip-green-glow: rgba(26, 255, 128, 0.6);
+$pip-green-dark: #0a3d1f;
+$pip-amber: #ff9500;
+$pip-red: #ff4444;
+$pip-yellow: #ffcc00;
 
-$secondaryColor: rgba(12, 12, 12, 0.4);
-$secondaryColorHighlight: #33343F;
-$secondaryColorLight: rgba(0, 0, 0, 0.5);
-$secondaryColorDark: rgba(12, 12, 12, 0.8);
+$mainColor: rgba(5, 15, 8, 0.95);
+$textColor: #1aff80;
+$mainFont: 'Share Tech Mono', 'Courier New', monospace;
+
+$secondaryColor: rgba(10, 30, 15, 0.9);
+$secondaryColorHighlight: rgba(26, 255, 128, 0.15);
+$secondaryColorLight: rgba(10, 40, 20, 0.7);
+$secondaryColorDark: rgba(5, 20, 10, 0.95);
+$terminalBorder: rgba(26, 255, 128, 0.3);
 
 $gridCols: 5;
 $gridRows: 5;
 $gridSize: 10.2vh;
 $gridGap: 10px;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * -2px);
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 @font-face {
   font-family: 'Gilroy-Bold';
@@ -43,10 +55,46 @@ $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * -2px)
   src: local('Gilroy-SemiBold'), url(nui://ox_inventory/web/fonts/Gilroy-SemiBold.ttf) format('truetype');
 }
 
+// Pip-Boy animations
+@keyframes terminalGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px $pip-green-glow, inset 0 0 10px rgba(26, 255, 128, 0.05);
+  }
+
+  50% {
+    box-shadow: 0 0 20px $pip-green-glow, inset 0 0 15px rgba(26, 255, 128, 0.08);
+  }
+}
+
+@keyframes textGlow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 5px $pip-green-glow, 0 0 10px $pip-green-glow;
+  }
+
+  50% {
+    text-shadow: 0 0 10px $pip-green-glow, 0 0 20px $pip-green-glow, 0 0 30px $pip-green-glow;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: $mainFont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -64,7 +112,22 @@ code {
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $mainColor;
+  border: 1px solid $pip-green-dim;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $pip-green-dim;
+  border: 1px solid $pip-green;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $pip-green;
 }
 
 p {
@@ -83,16 +146,16 @@ input[type='number']::-webkit-outer-spin-button {
 .app-wrapper {
   height: 100%;
   width: 100%;
-  color: white;
+  color: $textColor;
 }
 
 .context-menu-list {
   min-width: 200px;
   color: $textColor;
   padding: 4px;
-  background-color: rgb(12 12 12 / 55%);
-  border: 0.5px solid #ffffff15;
-  border-radius: 6px;
+  background-color: $mainColor;
+  border: 1px solid $terminalBorder;
+  border-radius: 4px;
   outline: none;
   display: flex;
   flex-direction: column;
@@ -100,21 +163,25 @@ input[type='number']::-webkit-outer-spin-button {
 
 .context-menu-item {
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: transparent;
   outline: none;
   border: none;
-  color: $textColor;
+  color: $pip-green;
+  font-family: 'Share Tech Mono', monospace;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 
   &:active {
     transform: none;
   }
 
   &:hover {
-    background-color: rgb(12 12 12 / 66%);
+    background-color: rgba(26, 255, 128, 0.15);
+    text-shadow: 0 0 8px $pip-green-glow;
     cursor: pointer;
   }
 }
@@ -152,8 +219,30 @@ button:active {
   align-items: center;
   height: 100%;
 
-  background: rgba(20, 21, 24, 0.9);
+  background: linear-gradient(135deg, rgba(10, 15, 10, 0.95) 0%, rgba(5, 10, 5, 0.98) 100%);
+  border: 1px solid rgba(26, 255, 128, 0.3);
+  box-shadow:
+    inset 0 0 100px rgba(26, 255, 128, 0.03),
+    0 0 30px rgba(0, 0, 0, 0.8);
   gap: 40px;
+  position: relative;
+
+  // CRT scanline effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px);
+    pointer-events: none;
+    z-index: 1000;
+  }
 }
 
 .inventory-wrapper2 {
@@ -185,58 +274,72 @@ button:active {
   .inventory-control-input {
     transition: 200ms;
     padding: 5px 0px;
-    border-radius: 2.5%;
-    font-family: $mainFont;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
     font-size: 18px;
     text-align: center;
     outline: none;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
-    background-color: #ffffff00;
-    border: 0.5px dashed rgba(255, 255, 255, .08);
+    color: $pip-green;
+    background-color: rgba(26, 255, 128, 0.05);
+    border: 1px solid rgba(26, 255, 128, 0.3);
     width: 6vw;
-    border-radius: 6px;
+    text-shadow: 0 0 5px $pip-green-glow;
 
     &:focus-within {
-      background-color: #ffffff00;
+      background-color: rgba(26, 255, 128, 0.1);
+      border-color: $pip-green;
+      box-shadow: 0 0 10px $pip-green-glow;
+    }
+
+    &::placeholder {
+      color: rgba(26, 255, 128, 0.4);
     }
   }
 
   .inventory-control-button {
     font-size: 14px;
-    color: rgba(255, 255, 255, 1);
-    background-color: #0003;
-    border-radius: 6px;
-    border: 0.5px solid #ffffff15;
+    color: $pip-green;
+    background-color: rgba(26, 255, 128, 0.1);
+    border-radius: 2px;
+    border: 1px solid rgba(26, 255, 128, 0.4);
     transition: 200ms;
     padding: 12px 8px;
     text-transform: uppercase;
-    font-family: "Gilroy-Medium", sans-serif;
+    font-family: 'Share Tech Mono', monospace;
     width: 7vw;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px $pip-green-glow;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(26, 255, 128, 0.2);
+      border-color: $pip-green;
+      box-shadow: 0 0 15px $pip-green-glow;
+      cursor: pointer;
     }
   }
 }
 
 .useful-controls-dialog {
-  background-color: $mainColor;
+  background: linear-gradient(135deg, rgba(10, 15, 10, 0.98) 0%, rgba(5, 10, 5, 0.99) 100%);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: $textColor;
+  color: $pip-green;
   width: 450px;
   display: flex;
   flex-direction: column;
   padding: 16px;
-  border-radius: 4px;
+  border-radius: 2px;
+  border: 1px solid rgba(26, 255, 128, 0.4);
+  box-shadow: 0 0 30px rgba(26, 255, 128, 0.2);
   gap: 16px;
+  font-family: 'Share Tech Mono', monospace;
 }
 
 .useful-controls-dialog-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .useful-controls-dialog-title {
@@ -245,6 +348,11 @@ button:active {
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px $pip-green-glow;
+  border-bottom: 1px solid rgba(26, 255, 128, 0.3);
+  padding-bottom: 10px;
 }
 
 .useful-controls-dialog-close {
@@ -254,11 +362,11 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  fill: $textColor;
+  border-radius: 2px;
+  fill: $pip-green;
 
   &:hover {
-    background-color: $secondaryColorHighlight;
+    background-color: rgba(26, 255, 128, 0.2);
     cursor: pointer;
   }
 }
@@ -272,7 +380,7 @@ button:active {
 .divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: rgba(26, 255, 128, 0.2);
 }
 
 .useful-controls-button {
@@ -280,19 +388,20 @@ button:active {
   bottom: 25px;
   right: 25px;
   transition: 200ms !important;
-  border: none;
-  color: white;
+  border: 1px solid rgba(26, 255, 128, 0.4) !important;
+  color: $pip-green;
   width: 52px;
   height: 52px;
   display: flex;
   justify-content: center;
   align-items: center;
-  fill: white;
-  border-radius: 5% !important;
-  background-color: $secondaryColor !important;
+  fill: $pip-green;
+  border-radius: 2px !important;
+  background-color: rgba(26, 255, 128, 0.1) !important;
 
   &:hover {
-    background-color: $secondaryColorDark !important;
+    background-color: rgba(26, 255, 128, 0.2) !important;
+    box-shadow: 0 0 15px $pip-green-glow;
     cursor: pointer;
   }
 }
@@ -361,27 +470,39 @@ button:active {
 
 // inventory slots
 .inventory-slot {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(26, 255, 128, 0.03);
   background-repeat: no-repeat;
   background-position: center;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 6.5vh;
-  color: rgba(255, 255, 255, 0.65);
-  border-radius: 6px;
-  border: 0.5px solid #ffffff15;
+  color: $pip-green;
+  border-radius: 2px;
+  border: 1px solid rgba(26, 255, 128, 0.25);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba(26, 255, 128, 0.5);
+    box-shadow: 0 0 10px rgba(26, 255, 128, 0.2);
+  }
 }
 
 .inventory-slot-clothing {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(26, 255, 128, 0.05);
   background-repeat: no-repeat;
   background-position: center;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 6.5vh;
-  color: rgba(255, 255, 255, 0.65);
-  border-radius: 6px;
-  border: 0.5px dashed #ffffff15;
+  color: $pip-green;
+  border-radius: 2px;
+  border: 1px dashed rgba(26, 255, 128, 0.4);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $pip-green;
+    box-shadow: 0 0 12px rgba(26, 255, 128, 0.3);
+  }
 }
 
 .clothing-slot-label {
@@ -391,17 +512,19 @@ button:active {
   right: 0;
   text-align: center;
   font-size: 9px;
-  font-family: 'Gilroy-Light', sans-serif;
-  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Share Tech Mono', monospace;
+  color: $pip-green;
   text-transform: uppercase;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(10, 15, 10, 0.7);
   padding: 2px 0;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 2px 2px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px $pip-green-glow;
 }
 
 .inventory-slot-label-box {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(26, 255, 128, 0.08);
+  color: $pip-green;
   text-align: center;
 }
 
@@ -415,23 +538,26 @@ button:active {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 2px 3px;
-  font-family: 'Gilroy-Light', sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 3px $pip-green-glow;
 }
 
 .inventory-slot-number {
-  background-color: #ffffff0d;
-  color: #fff;
+  background-color: rgba(26, 255, 128, 0.15);
+  color: $pip-green;
   height: 15px;
   width: 15px;
   padding: 3px;
   font-size: 12px;
-  font-family: 'Gilroy-SemiBold', sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   left: 72px;
   text-align: center;
   top: 0;
   position: absolute;
-  border-radius: 6px;
+  border-radius: 2px;
+  text-shadow: 0 0 5px $pip-green-glow;
 }
 
 .item-slot-wrapper {
@@ -501,16 +627,17 @@ button:active {
   padding: 8px;
   flex-direction: column;
   min-width: 200px;
-  color: rgb(193, 194, 197);
-  font-family: 'Gilroy-Regular', sans-serif;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  background: linear-gradient(358deg, rgb(21 53 80 / 15%) 0%, rgb(0 0 0 / 40%) 100%);
-  border: 1px solid rgb(255 255 255 / 11%);
+  color: $pip-green;
+  font-family: 'Share Tech Mono', monospace;
+  border-radius: 2px;
+  background: linear-gradient(135deg, rgba(10, 15, 10, 0.95) 0%, rgba(5, 10, 5, 0.98) 100%);
+  border: 1px solid rgba(26, 255, 128, 0.4);
+  box-shadow: 0 0 15px rgba(26, 255, 128, 0.2);
 
   p {
     font-size: 12px;
     font-weight: 400;
+    text-shadow: 0 0 5px $pip-green-glow;
   }
 }
 
@@ -519,10 +646,15 @@ button:active {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba(26, 255, 128, 0.2);
+  padding-bottom: 5px;
+  margin-bottom: 5px;
 
   p {
     font-size: 15px;
     font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 }
 
@@ -597,18 +729,22 @@ button:active {
 
 .item-notification-action-box {
   width: 100%;
-  color: $textColor;
-  background-color: $secondaryColor;
+  color: $pip-green;
+  background-color: rgba(26, 255, 128, 0.15);
   text-transform: uppercase;
   text-align: center;
-  border-top-left-radius: 0.25vh;
-  border-top-right-radius: 0.25vh;
-  font-family: $mainFont;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  font-family: 'Share Tech Mono', monospace;
+  border: 1px solid rgba(26, 255, 128, 0.3);
+  border-bottom: none;
 
   p {
     font-size: 11px;
     padding: 2px;
     font-weight: 600;
+    text-shadow: 0 0 5px $pip-green-glow;
+    letter-spacing: 1px;
   }
 }
 
@@ -619,20 +755,21 @@ button:active {
 }
 
 .durability-bar {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(10, 15, 10, 0.7);
   height: 3px;
   overflow: hidden;
+  border: 1px solid rgba(26, 255, 128, 0.2);
+  border-radius: 1px;
 }
 
 .weight-bar {
-  background: rgba(0, 0, 0, 0.3);
-  border: 0px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 15, 10, 0.7);
+  border: 1px solid rgba(26, 255, 128, 0.3);
   height: 0.5vh;
-  border-radius: 5%;
   overflow: hidden;
   flex: 1;
   margin-bottom: 8px;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 .transition-fade-enter {
@@ -704,58 +841,62 @@ button:active {
 
 .WeightText {
   font-size: 14px;
-  font-family: "Gilroy-Thin", sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   padding-left: 10px;
   margin-bottom: 6px;
+  color: $pip-green;
+  text-shadow: 0 0 5px $pip-green-glow;
 }
 
 .LabelText {
   font-size: 20px;
-  font-family: "Gilroy-Light", sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   padding-right: 10px;
+  color: $pip-green;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px $pip-green-glow;
 }
 
 .HotSlotLabel {
   position: absolute;
   bottom: 34.4vh;
   font-size: 21px;
-  font-family: "Gilroy-Medium", sans-serif;
+  font-family: 'Share Tech Mono', monospace;
+  color: $pip-green;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px $pip-green-glow;
 }
 
 .iconWrapper {
   display: inline-flex;
-  /* Use flexbox for easier vertical alignment */
   align-items: center;
-  /* Vertically center items */
   justify-content: center;
-  /* Horizontally center items */
-  background-color: #008cff;
+  background-color: rgba(26, 255, 128, 0.2);
   padding: 6px;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-right: 12px;
-  box-shadow: 0px 2px 20px 4px #008cff7d;
+  box-shadow: 0px 2px 20px 4px rgba(26, 255, 128, 0.3);
+  border: 1px solid rgba(26, 255, 128, 0.4);
   width: 20px;
-  /* Width of the rectangle */
   height: 20px;
-  /* Height of the rectangle */
+  color: $pip-green;
 }
 
 .iconWrapper2 {
   display: inline-flex;
-  /* Use flexbox for easier vertical alignment */
   align-items: center;
-  /* Vertically center items */
   justify-content: center;
-  /* Horizontally center items */
-  background-color: #008cff;
+  background-color: rgba(26, 255, 128, 0.2);
   padding: 6px;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-right: 12px;
-  box-shadow: 0px 2px 20px 4px #008cff7d;
+  box-shadow: 0px 2px 20px 4px rgba(26, 255, 128, 0.3);
+  border: 1px solid rgba(26, 255, 128, 0.4);
   width: 25px;
-  /* Width of the rectangle */
   height: 25px;
-  /* Height of the rectangle */
+  color: $pip-green;
 }
 
 .iconWrapper svg {
@@ -780,8 +921,12 @@ button:active {
   align-items: center;
   width: 26.5vw;
   font-size: 25px;
-  font-family: 'Gilroy-Regular', sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   padding-left: 6px;
+  color: $pip-green;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px $pip-green-glow;
 }
 
 @media screen and (max-width: 1700px) {
