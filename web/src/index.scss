@@ -114,16 +114,18 @@ code {
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background: $mainColor;
-  border: 1px solid $pip-green-dim;
+  background: transparent;
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb {
   background: $pip-green-dim;
   border: 1px solid $pip-green;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -147,6 +149,12 @@ input[type='number']::-webkit-outer-spin-button {
   height: 100%;
   width: 100%;
   color: $textColor;
+  background: transparent;
+  pointer-events: none;
+  
+  & > * {
+    pointer-events: auto;
+  }
 }
 
 .context-menu-list {
@@ -226,23 +234,6 @@ button:active {
     0 0 30px rgba(0, 0, 0, 0.8);
   gap: 40px;
   position: relative;
-
-  // CRT scanline effect
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px);
-    pointer-events: none;
-    z-index: 1000;
-  }
 }
 
 .inventory-wrapper2 {
