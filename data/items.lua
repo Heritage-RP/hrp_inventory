@@ -307,4 +307,14 @@ return {
 		weight = 100,
 		stack = false,
 	},
+
+	['skateboard'] = {
+		label = 'Skateboard',
+		weight = 2000,
+		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-skating.useSkateboardItem'
+		}
+	},
 }
