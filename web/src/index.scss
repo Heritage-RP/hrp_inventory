@@ -7,14 +7,14 @@ $pip-amber: #ff9500;
 $pip-red: #ff4444;
 $pip-yellow: #ffcc00;
 
-$mainColor: rgba(5, 15, 8, 0.95);
+$mainColor: rgba(5, 15, 8, 0.7);
 $textColor: #1aff80;
 $mainFont: 'Share Tech Mono', 'Courier New', monospace;
 
-$secondaryColor: rgba(10, 30, 15, 0.9);
+$secondaryColor: rgba(10, 30, 15, 0.65);
 $secondaryColorHighlight: rgba(26, 255, 128, 0.15);
-$secondaryColorLight: rgba(10, 40, 20, 0.7);
-$secondaryColorDark: rgba(5, 20, 10, 0.95);
+$secondaryColorLight: rgba(10, 40, 20, 0.5);
+$secondaryColorDark: rgba(5, 20, 10, 0.7);
 $terminalBorder: rgba(26, 255, 128, 0.3);
 
 $gridCols: 5;
@@ -227,11 +227,11 @@ button:active {
   align-items: center;
   height: 100%;
 
-  background: linear-gradient(135deg, rgba(10, 15, 10, 0.95) 0%, rgba(5, 10, 5, 0.98) 100%);
+  background: linear-gradient(135deg, rgba(10, 15, 10, 0.65) 0%, rgba(5, 10, 5, 0.70) 100%);
   border: 1px solid rgba(26, 255, 128, 0.3);
   box-shadow:
     inset 0 0 100px rgba(26, 255, 128, 0.03),
-    0 0 30px rgba(0, 0, 0, 0.8);
+    0 0 30px rgba(0, 0, 0, 0.6);
   gap: 40px;
   position: relative;
 }

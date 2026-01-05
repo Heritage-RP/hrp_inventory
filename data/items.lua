@@ -228,84 +228,140 @@ return {
 		label = 'Mask',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['hat'] = {
 		label = 'Hat',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['earrings'] = {
 		label = 'Earrings',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['glasses'] = {
 		label = 'Glasses',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['chain'] = {
 		label = 'Chain',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['undershirt'] = {
 		label = 'Undershirt',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['jacket'] = {
 		label = 'Jacket',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['bodyarmor'] = {
 		label = 'Body Armor',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['bracelet'] = {
 		label = 'Bracelet',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['watch'] = {
 		label = 'Watch',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['bag'] = {
 		label = 'Bag',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['pants'] = {
 		label = 'Pants',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['shoes'] = {
 		label = 'Shoes',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['gloves'] = {
 		label = 'Gloves',
 		weight = 100,
 		stack = false,
+		consume = 0,
+		server = {
+			export = 'hrp-item-clothes.useClothingItem'
+		}
 	},
 
 	['skateboard'] = {
