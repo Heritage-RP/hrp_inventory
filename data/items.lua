@@ -373,4 +373,12 @@ return {
 			export = 'hrp-skating.useSkateboardItem'
 		}
 	},
+
+	['firstaid'] = {
+		label = 'First Aid Kit',
+		weight = 500,
+		stack = true,
+		close = true,
+		description = 'A first aid kit used to revive downed players',
+	},
 }
