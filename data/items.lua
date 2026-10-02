@@ -223,6 +223,25 @@ return {
 		weight = 80,
 	},
 
+	-- Hunting loot (hrp-hunting): crafting materials, not usable yet
+	['cloth_scrap'] = {
+		label = 'Cloth Scraps',
+		weight = 50,
+		description = 'Rags torn from ghouls. Can be turned into clothes.',
+	},
+
+	['raw_meat'] = {
+		label = 'Raw Meat',
+		weight = 250,
+		description = 'Meat from a wild animal. Cook it before eating.',
+	},
+
+	['animal_hide'] = {
+		label = 'Animal Hide',
+		weight = 400,
+		description = 'Hide from a wild animal.',
+	},
+
 	-- Clothing items for inventory slots
 	['mask'] = {
 		label = 'Mask',
