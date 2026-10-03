@@ -78,6 +78,8 @@ return {
 			usetime = 2500,
 			notification = 'You ate a delicious burger'
 		},
+		-- hrp-radiation: contaminated unless boiled
+		server = { export = 'hrp-radiation.consumable' },
 	},
 
 	['sprunk'] = {
@@ -89,7 +91,8 @@ return {
 			prop = { model = `prop_ld_can_01`, pos = vec3(0.01, 0.01, 0.06), rot = vec3(5.0, 5.0, -180.5) },
 			usetime = 2500,
 			notification = 'You quenched your thirst with a sprunk'
-		}
+		},
+		server = { export = 'hrp-radiation.consumable' },
 	},
 
 	['parachute'] = {
@@ -171,7 +174,8 @@ return {
 			prop = { model = `prop_food_mustard`, pos = vec3(0.01, 0.0, -0.07), rot = vec3(1.0, 1.0, -1.5) },
 			usetime = 2500,
 			notification = 'You.. drank mustard'
-		}
+		},
+		server = { export = 'hrp-radiation.consumable' },
 	},
 
 	['water'] = {
@@ -184,7 +188,8 @@ return {
 			usetime = 2500,
 			cancel = true,
 			notification = 'You drank some refreshing water'
-		}
+		},
+		server = { export = 'hrp-radiation.consumable' },
 	},
 
 	['radio'] = {
@@ -240,6 +245,59 @@ return {
 		label = 'Animal Hide',
 		weight = 400,
 		description = 'Hide from a wild animal.',
+	},
+
+	-- Radiation (hrp-radiation, PRODUCTION-SERVER#22 / #24)
+	['canned_food'] = {
+		label = 'Canned Food',
+		weight = 400,
+		description = 'Sealed before the war: safe from radiation.',
+		client = {
+			status = { hunger = 200000 },
+			anim = 'eating',
+			usetime = 2500,
+		},
+	},
+
+	['antirad'] = {
+		label = 'Anti-Radiation Medication',
+		weight = 50,
+		description = 'Removes all the radiation within ten seconds.',
+		client = {
+			image = 'medikit.png',
+			anim = { dict = 'mp_suicide', clip = 'pill', flag = 49 },
+			usetime = 2500,
+			cancel = true,
+		},
+		server = { export = 'hrp-radiation.useAntirad' },
+	},
+
+	['recipe_antirad'] = {
+		label = 'Recipe: Anti-Radiation Medication',
+		weight = 10,
+		stack = false,
+		description = 'How to make the anti-radiation medication. Crafting comes with the workbench.',
+	},
+
+	['gas_mask'] = {
+		label = 'Gas Mask',
+		weight = 800,
+		stack = false,
+		close = true,
+		consume = 0,
+		description = 'Use to put on / take off. Filters part of the radiation and slowly wears out.',
+		client = { image = 'mask.png' },
+		server = { export = 'hrp-radiation.useGear' },
+	},
+
+	['hazmat_suit'] = {
+		label = 'Hazmat Suit',
+		weight = 3000,
+		stack = false,
+		close = true,
+		consume = 0,
+		description = 'Use to put on / take off. Blocks most of the radiation and slowly wears out.',
+		server = { export = 'hrp-radiation.useGear' },
 	},
 
 	-- Clothing items for inventory slots
