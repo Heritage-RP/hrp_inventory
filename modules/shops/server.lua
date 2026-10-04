@@ -17,7 +17,7 @@ local function setupShopItems(id, shopType, shopName, groups)
 		local slot = shop.items[i]
 
 		if slot.grade and not groups then
-			print(('^1attempted to restrict slot %s (%s) to grade %s, but %s has no job restriction^0'):format(id, slot.name, json.encode(slot.grade), shopName))
+			lib.print.warn(('attempted to restrict slot %s (%s) to grade %s, but %s has no job restriction'):format(id, slot.name, json.encode(slot.grade), shopName))
 			slot.grade = nil
 		end
 

@@ -19,34 +19,34 @@ return {
 			{
 				label = 'Lick it',
 				action = function(slot)
-					print('You licked the burger')
+					lib.print.debug('You licked the burger')
 				end
 			},
 			{
 				label = 'Squeeze it',
 				action = function(slot)
-					print('You squeezed the burger :(')
+					lib.print.debug('You squeezed the burger :(')
 				end
 			},
 			{
 				label = 'What do you call a vegan burger?',
 				group = 'Hamburger Puns',
 				action = function(slot)
-					print('A misteak.')
+					lib.print.debug('A misteak.')
 				end
 			},
 			{
 				label = 'What do frogs like to eat with their hamburgers?',
 				group = 'Hamburger Puns',
 				action = function(slot)
-					print('French flies.')
+					lib.print.debug('French flies.')
 				end
 			},
 			{
 				label = 'Why were the burger and fries running?',
 				group = 'Hamburger Puns',
 				action = function(slot)
-					print('Because they\'re fast food.')
+					lib.print.debug('Because they\'re fast food.')
 				end
 			}
 		},
