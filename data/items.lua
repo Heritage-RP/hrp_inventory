@@ -117,6 +117,16 @@ return {
 		consume = 0
 	},
 
+	['crafting_recipe_note'] = {
+		label = 'Recipe Note',
+		weight = 1,
+		stack = false,
+		consume = 0,
+		client = {
+			image = 'crafting_recipe_note.png'
+		}
+	},
+
 	['identification'] = {
 		label = 'Identification',
 		client = {
