@@ -491,7 +491,7 @@ local function hasActiveInventory(playerId, owner)
 				DropPlayer(playerId, ("Character identifier '%s' is already active."):format(owner))
 
                 -- Supposedly still getting stuck? Print info and hope somebody reports back (lol)
-				print(('kicked player.%s (charid is already in use)'):format(playerId), json.encode({
+				lib.print.warn(('kicked player.%s (charid is already in use)'):format(playerId), json.encode({
 					oldId = activePlayer,
 					newId = playerId,
 					charid = owner,
@@ -534,7 +534,7 @@ RegisterCommand('clearActiveIdentifier', function(source, args)
         DropPlayer(activePlayer, 'Kicked')
 
         -- Supposedly still getting stuck? Print info and hope somebody reports back (lol)
-        print(('kicked player.%s (clearActiveIdentifier)'):format(activePlayer), json.encode({
+        lib.print.warn(('kicked player.%s (clearActiveIdentifier)'):format(activePlayer), json.encode({
             oldId = activePlayer,
             charid = inventory.owner,
             endpoint = endpoint,

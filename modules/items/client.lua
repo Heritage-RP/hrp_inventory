@@ -142,19 +142,19 @@ end)
 Item('clothing', function(data, slot)
 	local metadata = slot.metadata
 
-	if not metadata.drawable then return print('Clothing is missing drawable in metadata') end
-	if not metadata.texture then return print('Clothing is missing texture in metadata') end
+	if not metadata.drawable then return lib.print.warn('Clothing is missing drawable in metadata') end
+	if not metadata.texture then return lib.print.warn('Clothing is missing texture in metadata') end
 
 	if metadata.prop then
 		if not SetPedPreloadPropData(cache.ped, metadata.prop, metadata.drawable, metadata.texture) then
-			return print('Clothing has invalid prop for this ped')
+			return lib.print.warn('Clothing has invalid prop for this ped')
 		end
 	elseif metadata.component then
 		if not IsPedComponentVariationValid(cache.ped, metadata.component, metadata.drawable, metadata.texture) then
-			return print('Clothing has invalid component for this ped')
+			return lib.print.warn('Clothing has invalid component for this ped')
 		end
 	else
-		return print('Clothing is missing prop/component id in metadata')
+		return lib.print.warn('Clothing is missing prop/component id in metadata')
 	end
 
 	ox_inventory:useItem(data, function(data)
