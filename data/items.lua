@@ -257,6 +257,132 @@ return {
 		description = 'Hide from a wild animal.',
 	},
 
+	-- Fishing (hrp-fishing, PRODUCTION-SERVER#145): raw fish are food, contaminated unless boiled (hrp-radiation);
+	-- irradiated catches carry metadata.contamination on top
+	['fishing_rod'] = {
+		label = 'Fishing Rod',
+		weight = 1500,
+		stack = false,
+		consume = 0,
+		close = true,
+		description = 'Use it facing a lake, a river or the sea.',
+		client = { export = 'hrp-fishing.useRod' },
+	},
+
+	['fishing_bait'] = {
+		label = 'Fishing Bait',
+		weight = 20,
+		description = 'Worms and scraps. One per fish hooked.',
+	},
+
+	['fish_carp'] = {
+		label = 'Carp',
+		weight = 800,
+		description = 'A freshwater carp. Boil it before eating.',
+		client = {
+			status = { hunger = 120000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_perch'] = {
+		label = 'Perch',
+		weight = 400,
+		description = 'A small freshwater perch. Boil it before eating.',
+		client = {
+			status = { hunger = 80000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_trout'] = {
+		label = 'Trout',
+		weight = 600,
+		description = 'A river trout. Boil it before eating.',
+		client = {
+			status = { hunger = 100000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_catfish'] = {
+		label = 'Catfish',
+		weight = 1500,
+		description = 'A big catfish from the muddy bottom. Boil it before eating.',
+		client = {
+			status = { hunger = 180000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_sardine'] = {
+		label = 'Sardine',
+		weight = 150,
+		description = 'A small sea fish. Boil it before eating.',
+		client = {
+			status = { hunger = 50000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_mackerel'] = {
+		label = 'Mackerel',
+		weight = 500,
+		description = 'A sea mackerel. Boil it before eating.',
+		client = {
+			status = { hunger = 90000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_snapper'] = {
+		label = 'Red Snapper',
+		weight = 900,
+		description = 'A red snapper from the sea floor. Boil it before eating.',
+		client = {
+			status = { hunger = 130000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_tuna'] = {
+		label = 'Tuna',
+		weight = 3000,
+		description = 'A large tuna. A feast. Boil it before eating.',
+		client = {
+			status = { hunger = 250000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	['fish_mutant'] = {
+		label = 'Mutant Fish',
+		weight = 1200,
+		description = 'Two heads, too many eyes. Caught in contaminated water. Boil it before eating.',
+		client = {
+			status = { hunger = 150000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
+	},
+
 	-- Radiation (hrp-radiation, PRODUCTION-SERVER#22 / #24)
 	['canned_food'] = {
 		label = 'Canned Food',
