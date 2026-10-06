@@ -248,7 +248,13 @@ return {
 	['raw_meat'] = {
 		label = 'Raw Meat',
 		weight = 250,
-		description = 'Meat from a wild animal. Cook it before eating.',
+		description = 'Meat from a wild animal. Cook it at a campfire: eaten raw, it is contaminated.',
+		client = {
+			status = { hunger = 80000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+		server = { export = 'hrp-radiation.consumable' },
 	},
 
 	['animal_hide'] = {
@@ -381,6 +387,97 @@ return {
 			usetime = 3000,
 		},
 		server = { export = 'hrp-radiation.consumable' },
+	},
+
+	-- Survival (hrp-survival, PRODUCTION-SERVER#149 / #144 / #148): campfire, canteen, harvesting tools and materials
+	['wood'] = {
+		label = 'Wood',
+		weight = 500,
+		close = true,
+		description = 'Firewood and building material. Use it to light a campfire (3 logs).',
+		client = { export = 'hrp-survival.useWood' },
+	},
+
+	['cooked_meat'] = {
+		label = 'Cooked Meat',
+		weight = 200,
+		description = 'Grilled over a campfire: safe to eat.',
+		client = {
+			status = { hunger = 250000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+	},
+
+	['cooked_fish'] = {
+		label = 'Cooked Fish',
+		weight = 300,
+		description = 'Grilled over a campfire: safe to eat.',
+		client = {
+			status = { hunger = 200000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+	},
+
+	['canteen'] = {
+		label = 'Canteen',
+		weight = 300,
+		stack = false,
+		close = true,
+		consume = 0,
+		description = 'Fill it at a river, a lake or a tap.',
+		client = { export = 'hrp-survival.useCanteen' },
+	},
+
+	['water_tablet'] = {
+		label = 'Water Treatment Tablet',
+		weight = 5,
+		close = true,
+		description = 'Makes the water of a canteen safe to drink.',
+		client = { export = 'hrp-survival.useTablet' },
+	},
+
+	['hatchet'] = {
+		label = 'Hatchet',
+		weight = 1200,
+		stack = false,
+		close = true,
+		consume = 0,
+		description = 'Chops wood from trees. Wears out.',
+		client = { image = 'WEAPON_HATCHET.png', export = 'hrp-survival.useTool' },
+	},
+
+	['pickaxe'] = {
+		label = 'Pickaxe',
+		weight = 2500,
+		stack = false,
+		close = true,
+		consume = 0,
+		description = 'Use it in a quarry to mine iron ore. Wears out.',
+		client = { export = 'hrp-survival.useTool' },
+	},
+
+	['toolkit'] = {
+		label = 'Toolkit',
+		weight = 1500,
+		stack = false,
+		close = true,
+		consume = 0,
+		description = 'Strips wrecks and pre-war appliances for metal and parts. Wears out.',
+		client = { export = 'hrp-survival.useTool' },
+	},
+
+	['iron_ore'] = {
+		label = 'Iron Ore',
+		weight = 600,
+		description = 'Raw ore from a quarry.',
+	},
+
+	['electronic_parts'] = {
+		label = 'Electronic Parts',
+		weight = 100,
+		description = 'Circuits and components taken from pre-war devices.',
 	},
 
 	-- Radiation (hrp-radiation, PRODUCTION-SERVER#22 / #24)
