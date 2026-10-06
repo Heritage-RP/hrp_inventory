@@ -594,4 +594,30 @@ return {
 		close = true,
 		description = 'A first aid kit used to revive downed players',
 	},
+
+	-- Lore documents (hrp-lore, PRODUCTION-SERVER#203): a blank item opens the editor and is consumed once written;
+	-- lore_document carries metadata.docId, label (title), description and weight set by hrp-lore.
+	['blank_sheet'] = {
+		label = 'Blank Sheet',
+		weight = 10,
+		consume = 0,
+		description = 'A blank sheet of paper. Use it to write.',
+		server = { export = 'hrp-lore.useBlank' },
+	},
+
+	['blank_book'] = {
+		label = 'Blank Book',
+		weight = 300,
+		consume = 0,
+		description = 'A notebook with empty pages. Use it to write.',
+		server = { export = 'hrp-lore.useBlank' },
+	},
+
+	['lore_document'] = {
+		label = 'Document',
+		weight = 10,
+		consume = 0,
+		description = 'Use it to read.',
+		server = { export = 'hrp-lore.useDocument' },
+	},
 }
