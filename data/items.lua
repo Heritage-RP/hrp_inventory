@@ -238,7 +238,7 @@ return {
 		weight = 80,
 	},
 
-	-- Hunting loot (hrp-hunting): crafting materials, not usable yet
+	-- Hunting loot (hrp-hunting): crafting materials, used by the hrp-crafting recipes
 	['cloth_scrap'] = {
 		label = 'Cloth Scraps',
 		weight = 50,
@@ -406,13 +406,6 @@ return {
 			cancel = true,
 		},
 		server = { export = 'hrp-radiation.useAntirad' },
-	},
-
-	['recipe_antirad'] = {
-		label = 'Recipe: Anti-Radiation Medication',
-		weight = 10,
-		stack = false,
-		description = 'How to make the anti-radiation medication. Crafting comes with the workbench.',
 	},
 
 	['gas_mask'] = {
