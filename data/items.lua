@@ -480,6 +480,124 @@ return {
 		description = 'Circuits and components taken from pre-war devices.',
 	},
 
+	-- Foraging and farming (hrp-survival, PRODUCTION-SERVER#146 / #147). Raw food goes through hrp-survival's export,
+	-- which hands it on to hrp-radiation (contaminated unless boiled; metadata.contamination when irradiated) and rolls
+	-- food poisoning (metadata.toxicity)
+	['wild_berries'] = {
+		label = 'Wild Berries',
+		weight = 50,
+		description = 'Picked from a bush. Not all of them agree with everyone.',
+		client = {
+			status = { hunger = 50000 },
+			anim = 'eating',
+			usetime = 2000,
+		},
+		server = { export = 'hrp-survival.food' },
+	},
+
+	['wild_mushrooms'] = {
+		label = 'Wild Mushrooms',
+		weight = 80,
+		description = 'Found at the foot of a tree. Some are poisonous, and nothing tells which.',
+		client = {
+			status = { hunger = 70000 },
+			anim = 'eating',
+			usetime = 2500,
+		},
+		server = { export = 'hrp-survival.food' },
+	},
+
+	['wild_herbs'] = {
+		label = 'Wild Herbs',
+		weight = 20,
+		description = 'Medicinal herbs. Used in remedies.',
+	},
+
+	['seed_potato'] = {
+		label = 'Seed Potatoes',
+		weight = 100,
+		consume = 0,
+		close = true,
+		description = 'From the bunkers. Plant them in a plot, then water them.',
+		client = { export = 'hrp-survival.useSeed' },
+	},
+
+	['seed_tomato'] = {
+		label = 'Tomato Seeds',
+		weight = 10,
+		consume = 0,
+		close = true,
+		description = 'From the bunkers. Plant them in a plot, then water them.',
+		client = { export = 'hrp-survival.useSeed' },
+	},
+
+	['seed_pumpkin'] = {
+		label = 'Pumpkin Seeds',
+		weight = 10,
+		consume = 0,
+		close = true,
+		description = 'From the bunkers. Plant them in a plot, then water them.',
+		client = { export = 'hrp-survival.useSeed' },
+	},
+
+	['potato'] = {
+		label = 'Potato',
+		weight = 200,
+		description = 'Fresh from the field. Bake it at a campfire, or boil it.',
+		client = {
+			status = { hunger = 60000 },
+			anim = 'eating',
+			usetime = 2500,
+		},
+		server = { export = 'hrp-survival.food' },
+	},
+
+	['tomato'] = {
+		label = 'Tomato',
+		weight = 150,
+		description = 'Fresh from the field. Boil it before eating it.',
+		client = {
+			status = { hunger = 50000 },
+			anim = 'eating',
+			usetime = 2000,
+		},
+		server = { export = 'hrp-survival.food' },
+	},
+
+	['pumpkin'] = {
+		label = 'Pumpkin',
+		weight = 2500,
+		description = 'A whole pumpkin. Roast it at a campfire.',
+		client = {
+			status = { hunger = 150000 },
+			anim = 'eating',
+			usetime = 4000,
+		},
+		server = { export = 'hrp-survival.food' },
+	},
+
+	['baked_potato'] = {
+		label = 'Baked Potato',
+		weight = 180,
+		description = 'Baked over a campfire: safe to eat.',
+		client = {
+			status = { hunger = 180000 },
+			anim = 'eating',
+			usetime = 3000,
+		},
+	},
+
+	['roasted_pumpkin'] = {
+		label = 'Roasted Pumpkin',
+		weight = 1200,
+		description = 'Roasted over a campfire: safe to eat, and plenty of it.',
+		client = {
+			status = { hunger = 400000 },
+			anim = 'eating',
+			usetime = 4000,
+		},
+	},
+
 	-- Radiation (hrp-radiation, PRODUCTION-SERVER#22 / #24)
 	['canned_food'] = {
 		label = 'Canned Food',
