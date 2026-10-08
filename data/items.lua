@@ -828,4 +828,15 @@ return {
 		description = 'Use it to read.',
 		server = { export = 'hrp-lore.useDocument' },
 	},
+
+	-- Mounts (hrp-animal-riding, PRODUCTION-SERVER#153): use it while looking at a deer or a boar to tame it.
+	-- hrp-animal-riding takes one bait server-side when the taming starts (consume = 0 here).
+	['animal_bait'] = {
+		label = 'Animal Bait',
+		weight = 100,
+		consume = 0,
+		close = true,
+		description = 'Berries and salt mixed with meat. Hold it out to a wild deer or boar to tame it as a mount.',
+		client = { export = 'hrp-animal-riding.useBait' },
+	},
 }
