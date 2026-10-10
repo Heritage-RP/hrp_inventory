@@ -775,11 +775,13 @@ return {
 
 	-- Mounts (hrp-animal-riding, PRODUCTION-SERVER#153): use it while looking at a deer or a boar to tame it.
 	-- hrp-animal-riding takes one bait server-side when the taming starts (consume = 0 here).
+	-- allowArmed: held out during a hunt, rifle in hand; no ox_inventory animation (PRODUCTION-SERVER#208).
 	['animal_bait'] = {
 		label = 'Animal Bait',
 		weight = 100,
 		consume = 0,
 		close = true,
+		allowArmed = true,
 		description = 'Berries and salt mixed with meat. Hold it out to a wild deer or boar to tame it as a mount.',
 		client = { export = 'hrp-animal-riding.useBait' },
 	},

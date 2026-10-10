@@ -7,6 +7,14 @@ A complete inventory system for FiveM, implementing items, weapons, shops, and m
 ![](https://img.shields.io/github/contributors/communityox/ox_inventory?logo=github)
 ![](https://img.shields.io/github/v/release/communityox/ox_inventory?logo=github)
 
+## Héritage RP fork
+
+- **Phantom weapon** (PRODUCTION-SERVER#208): a `currentWeapon` that is only a leftover (disarmed but never cleared,
+  item gone, no longer in the ped's hands) is cleared before an item use is refused for being armed
+  (`modules/weapon/shared.lua`, `dropPhantomWeapon` in `client.lua`); `ox_inventory:clearWeapons` resets it too.
+- `allowArmed` on items used without an ox_inventory animation: lore documents, `animal_bait`.
+- Tests: `docker run --rm -v "$PWD":/w -w /w nickblah/lua:5.4 lua tests/lua/weapon_state_spec.lua`
+
 ## 📚 Documentation
 
 https://coxdocs.dev/ox_inventory
