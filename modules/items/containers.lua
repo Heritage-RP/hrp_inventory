@@ -56,7 +56,6 @@ exports('setContainerProperties', setContainerProperties)
 setContainerProperties('paperbag', {
 	slots = 5,
 	maxWeight = 1000,
-	blacklist = { 'testburger' }
 })
 
 setContainerProperties('pizzabox', {
