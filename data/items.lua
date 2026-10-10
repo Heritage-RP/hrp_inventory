@@ -429,7 +429,7 @@ return {
 		close = true,
 		consume = 0,
 		description = 'Fill it at a river, a lake or a tap.',
-		client = { export = 'hrp-survival.useCanteen' },
+		client = { image = 'water.png', export = 'hrp-survival.useCanteen' }, -- provisional image (PRODUCTION-SERVER#328)
 	},
 
 	['water_tablet'] = {
@@ -467,7 +467,7 @@ return {
 		close = true,
 		consume = 0,
 		description = 'Strips wrecks and pre-war appliances for metal and parts. Wears out.',
-		client = { export = 'hrp-survival.useTool' },
+		client = { image = 'advancedkit.png', export = 'hrp-survival.useTool' }, -- provisional image (PRODUCTION-SERVER#328)
 	},
 
 	['iron_ore'] = {
@@ -803,15 +803,20 @@ return {
 		stack = true,
 		close = true,
 		description = 'A first aid kit used to revive downed players',
+		client = { image = 'medikit.png' }, -- provisional image (PRODUCTION-SERVER#328)
 	},
 
 	-- Lore documents (hrp-lore, PRODUCTION-SERVER#203): a blank item opens the editor and is consumed once written;
 	-- lore_document carries metadata.docId, label (title), description and weight set by hrp-lore.
+	-- allowArmed: reading and writing open a UI without animation, so a weapon in hand must not block them
+	-- (PRODUCTION-SERVER#208). Images: provisional notebook (PRODUCTION-SERVER#328).
 	['blank_sheet'] = {
 		label = 'Blank Sheet',
 		weight = 10,
 		consume = 0,
 		description = 'A blank sheet of paper. Use it to write.',
+		allowArmed = true,
+		client = { image = 'crafting_recipe_note.png' },
 		server = { export = 'hrp-lore.useBlank' },
 	},
 
@@ -820,6 +825,8 @@ return {
 		weight = 300,
 		consume = 0,
 		description = 'A notebook with empty pages. Use it to write.',
+		allowArmed = true,
+		client = { image = 'crafting_recipe_note.png' },
 		server = { export = 'hrp-lore.useBlank' },
 	},
 
@@ -828,6 +835,8 @@ return {
 		weight = 10,
 		consume = 0,
 		description = 'Use it to read.',
+		allowArmed = true,
+		client = { image = 'crafting_recipe_note.png' },
 		server = { export = 'hrp-lore.useDocument' },
 	},
 

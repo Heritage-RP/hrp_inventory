@@ -119,22 +119,22 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
 
   const refs = useMergeRefs([connectRef, ref]);
 
-  // Clothing slot labels mapping
+  // Clothing slot labels mapping (locales: ui_slot_*)
   const clothingSlotLabels: { [key: number]: string } = {
-    31: 'Hat',
-    32: 'Undershirt',
-    33: 'Jacket',
-    34: 'Armor',
-    35: 'Gloves',
-    36: 'Pants',
-    37: 'Shoes',
-    38: 'Mask',
-    39: 'Glasses',
-    40: 'Earrings',
-    41: 'Chain',
-    42: 'Bracelet',
-    43: 'Watch',
-    44: 'Bag',
+    31: Locale.ui_slot_hat,
+    32: Locale.ui_slot_undershirt,
+    33: Locale.ui_slot_jacket,
+    34: Locale.ui_slot_armor,
+    35: Locale.ui_slot_gloves,
+    36: Locale.ui_slot_pants,
+    37: Locale.ui_slot_shoes,
+    38: Locale.ui_slot_mask,
+    39: Locale.ui_slot_glasses,
+    40: Locale.ui_slot_earrings,
+    41: Locale.ui_slot_chain,
+    42: Locale.ui_slot_bracelet,
+    43: Locale.ui_slot_watch,
+    44: Locale.ui_slot_bag,
   };
 
   const isClothingSlot = inventoryType === 'player' && item.slot >= 31 && item.slot <= 44;
