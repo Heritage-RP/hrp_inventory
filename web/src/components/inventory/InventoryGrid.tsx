@@ -6,6 +6,7 @@ import { getTotalWeight } from '../../helpers';
 import { useAppSelector } from '../../store';
 import { useIntersection } from '../../hooks/useIntersection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Locale } from '../../store/locale';
 import { faList, faBriefcase, faUserTie } from '@fortawesome/free-solid-svg-icons';
 
 const PAGE_SIZE = 30;
@@ -47,14 +48,14 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
                         <FontAwesomeIcon icon={faList} />
                     </div>
                 )}
-                {inventory.type === 'player' ? "Inventory" : inventory.label === undefined ? "Other" : inventory.label}
+                {inventory.type === 'player' ? Locale.ui_inventory : inventory.label === undefined ? Locale.ui_other : inventory.label}
             </p>
             <div className={inventory.type === 'player' ? "WeightBarWrap" : "WeightBarWrap2"}>
             <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
             </div>
             {inventory.maxWeight && (
               <p className='WeightText' style={{ marginRight: inventory.type === 'player' ? 15 : 0 }}>
-                Weight: {weight / 1000}/{inventory.maxWeight / 1000}kg
+                {Locale.ui_weight}: {weight / 1000}/{inventory.maxWeight / 1000}kg
               </p>
             )}
           </div>

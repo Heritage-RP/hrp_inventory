@@ -86,12 +86,12 @@ const SlotTooltip: React.ForwardRefRenderFunction<
               )}
               {item.metadata?.drawable !== undefined && (
                 <p>
-                  Model: {item.metadata.drawable}
+                  {Locale.ui_model}: {item.metadata.drawable}
                 </p>
               )}
               {item.metadata?.texture !== undefined && (
                 <p>
-                  Texture: {item.metadata.texture}
+                  {Locale.ui_texture}: {item.metadata.texture}
                 </p>
               )}
               {additionalMetadata.map((data: { metadata: string; value: string }, index: number) => (
