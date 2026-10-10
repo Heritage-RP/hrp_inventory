@@ -5,6 +5,7 @@ require 'modules.interface.client'
 
 local Utils = require 'modules.utils.client'
 local Weapon = require 'modules.weapon.client'
+local WeaponState = require 'modules.weapon.shared'
 local currentWeapon
 
 exports('getCurrentWeapon', function()
@@ -17,6 +18,8 @@ end)
 
 RegisterNetEvent('ox_inventory:clearWeapons', function()
 	Weapon.ClearAll(currentWeapon)
+	-- HRP (PRODUCTION-SERVER#208): ClearAll disarms but the weapon stayed "equipped" here, refusing every item after
+	currentWeapon = nil
 end)
 
 local StashTarget
@@ -404,6 +407,20 @@ lib.callback.register('ox_inventory:usingItem', function(data, noAnim)
 	end
 end)
 
+-- HRP (PRODUCTION-SERVER#208): a currentWeapon that is only a leftover (already disarmed, item gone, not in the ped's
+-- hands) made ox_inventory refuse items with "You cannot perform this action" while no weapon was held. Checked
+-- before an item use is refused for being armed (the 200 ms tick below only reconciles a weapon whose timer is set).
+local function dropPhantomWeapon()
+	if not currentWeapon then return end
+
+	local item = Items[currentWeapon.name]
+
+	if WeaponState.isPhantom(currentWeapon, GetSelectedPedWeapon(playerPed), item and item.count) then
+		lib.print.info(('%s was no longer equipped: cleared before using an item'):format(currentWeapon.name))
+		currentWeapon = Weapon.Disarm(currentWeapon, true)
+	end
+end
+
 local function canUseItem(isAmmo)
 	local ped = cache.ped
 
@@ -423,6 +440,8 @@ end
 ---@param noAnim? boolean
 local function useItem(data, cb, noAnim)
 	local slotData, result = PlayerData.inventory[data.slot]
+
+	dropPhantomWeapon()
 
 	if not slotData or not canUseItem(data.ammo and true) then
         if currentWeapon then
@@ -475,6 +494,8 @@ local function useSlot(slot, noAnim)
 
 	local data = Items[item.name]
 	if not data then return end
+
+	dropPhantomWeapon()
 
 	if canUseItem(data.ammo and true) then
 		if data.component and not currentWeapon then
