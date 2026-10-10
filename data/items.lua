@@ -1,3 +1,5 @@
+-- satiety = { hunger = n, thirst = n }: points (0-100) given back by hrp-life-and-death when the item is used. It reads
+-- them server-side on ox_inventory:usedItem (client.status would only feed ox_core's statuses, which HRP does not use).
 return {
 	['testburger'] = {
 		label = 'Test Burger',
@@ -70,9 +72,9 @@ return {
 
 	['burger'] = {
 		label = 'Burger',
+		satiety = { hunger = 20 },
 		weight = 220,
 		client = {
-			status = { hunger = 200000 },
 			anim = 'eating',
 			prop = 'burger',
 			usetime = 2500,
@@ -84,9 +86,9 @@ return {
 
 	['sprunk'] = {
 		label = 'Sprunk',
+		satiety = { thirst = 20 },
 		weight = 350,
 		client = {
-			status = { thirst = 200000 },
 			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_ld_can_01`, pos = vec3(0.01, 0.01, 0.06), rot = vec3(5.0, 5.0, -180.5) },
 			usetime = 2500,
@@ -177,9 +179,9 @@ return {
 
 	['mustard'] = {
 		label = 'Mustard',
+		satiety = { hunger = 2.5, thirst = 2.5 },
 		weight = 500,
 		client = {
-			status = { hunger = 25000, thirst = 25000 },
 			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_food_mustard`, pos = vec3(0.01, 0.0, -0.07), rot = vec3(1.0, 1.0, -1.5) },
 			usetime = 2500,
@@ -190,9 +192,9 @@ return {
 
 	['water'] = {
 		label = 'Water',
+		satiety = { thirst = 20 },
 		weight = 500,
 		client = {
-			status = { thirst = 200000 },
 			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_ld_flow_bottle`, pos = vec3(0.03, 0.03, 0.02), rot = vec3(0.0, 0.0, -1.5) },
 			usetime = 2500,
@@ -247,10 +249,10 @@ return {
 
 	['raw_meat'] = {
 		label = 'Raw Meat',
+		satiety = { hunger = 8 },
 		weight = 250,
 		description = 'Meat from a wild animal. Cook it at a campfire: eaten raw, it is contaminated.',
 		client = {
-			status = { hunger = 80000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -283,10 +285,10 @@ return {
 
 	['fish_carp'] = {
 		label = 'Carp',
+		satiety = { hunger = 12 },
 		weight = 800,
 		description = 'A freshwater carp. Boil it before eating.',
 		client = {
-			status = { hunger = 120000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -295,10 +297,10 @@ return {
 
 	['fish_perch'] = {
 		label = 'Perch',
+		satiety = { hunger = 8 },
 		weight = 400,
 		description = 'A small freshwater perch. Boil it before eating.',
 		client = {
-			status = { hunger = 80000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -307,10 +309,10 @@ return {
 
 	['fish_trout'] = {
 		label = 'Trout',
+		satiety = { hunger = 10 },
 		weight = 600,
 		description = 'A river trout. Boil it before eating.',
 		client = {
-			status = { hunger = 100000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -319,10 +321,10 @@ return {
 
 	['fish_catfish'] = {
 		label = 'Catfish',
+		satiety = { hunger = 18 },
 		weight = 1500,
 		description = 'A big catfish from the muddy bottom. Boil it before eating.',
 		client = {
-			status = { hunger = 180000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -331,10 +333,10 @@ return {
 
 	['fish_sardine'] = {
 		label = 'Sardine',
+		satiety = { hunger = 5 },
 		weight = 150,
 		description = 'A small sea fish. Boil it before eating.',
 		client = {
-			status = { hunger = 50000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -343,10 +345,10 @@ return {
 
 	['fish_mackerel'] = {
 		label = 'Mackerel',
+		satiety = { hunger = 9 },
 		weight = 500,
 		description = 'A sea mackerel. Boil it before eating.',
 		client = {
-			status = { hunger = 90000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -355,10 +357,10 @@ return {
 
 	['fish_snapper'] = {
 		label = 'Red Snapper',
+		satiety = { hunger = 13 },
 		weight = 900,
 		description = 'A red snapper from the sea floor. Boil it before eating.',
 		client = {
-			status = { hunger = 130000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -367,10 +369,10 @@ return {
 
 	['fish_tuna'] = {
 		label = 'Tuna',
+		satiety = { hunger = 25 },
 		weight = 3000,
 		description = 'A large tuna. A feast. Boil it before eating.',
 		client = {
-			status = { hunger = 250000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -379,10 +381,10 @@ return {
 
 	['fish_mutant'] = {
 		label = 'Mutant Fish',
+		satiety = { hunger = 15 },
 		weight = 1200,
 		description = 'Two heads, too many eyes. Caught in contaminated water. Boil it before eating.',
 		client = {
-			status = { hunger = 150000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -400,10 +402,10 @@ return {
 
 	['cooked_meat'] = {
 		label = 'Cooked Meat',
+		satiety = { hunger = 25 },
 		weight = 200,
 		description = 'Grilled over a campfire: safe to eat.',
 		client = {
-			status = { hunger = 250000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -411,10 +413,10 @@ return {
 
 	['cooked_fish'] = {
 		label = 'Cooked Fish',
+		satiety = { hunger = 20 },
 		weight = 300,
 		description = 'Grilled over a campfire: safe to eat.',
 		client = {
-			status = { hunger = 200000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -485,10 +487,10 @@ return {
 	-- food poisoning (metadata.toxicity)
 	['wild_berries'] = {
 		label = 'Wild Berries',
+		satiety = { hunger = 5 },
 		weight = 50,
 		description = 'Picked from a bush. Not all of them agree with everyone.',
 		client = {
-			status = { hunger = 50000 },
 			anim = 'eating',
 			usetime = 2000,
 		},
@@ -497,10 +499,10 @@ return {
 
 	['wild_mushrooms'] = {
 		label = 'Wild Mushrooms',
+		satiety = { hunger = 7 },
 		weight = 80,
 		description = 'Found at the foot of a tree. Some are poisonous, and nothing tells which.',
 		client = {
-			status = { hunger = 70000 },
 			anim = 'eating',
 			usetime = 2500,
 		},
@@ -542,10 +544,10 @@ return {
 
 	['potato'] = {
 		label = 'Potato',
+		satiety = { hunger = 6 },
 		weight = 200,
 		description = 'Fresh from the field. Bake it at a campfire, or boil it.',
 		client = {
-			status = { hunger = 60000 },
 			anim = 'eating',
 			usetime = 2500,
 		},
@@ -554,10 +556,10 @@ return {
 
 	['tomato'] = {
 		label = 'Tomato',
+		satiety = { hunger = 5 },
 		weight = 150,
 		description = 'Fresh from the field. Boil it before eating it.',
 		client = {
-			status = { hunger = 50000 },
 			anim = 'eating',
 			usetime = 2000,
 		},
@@ -566,10 +568,10 @@ return {
 
 	['pumpkin'] = {
 		label = 'Pumpkin',
+		satiety = { hunger = 15 },
 		weight = 2500,
 		description = 'A whole pumpkin. Roast it at a campfire.',
 		client = {
-			status = { hunger = 150000 },
 			anim = 'eating',
 			usetime = 4000,
 		},
@@ -578,10 +580,10 @@ return {
 
 	['baked_potato'] = {
 		label = 'Baked Potato',
+		satiety = { hunger = 18 },
 		weight = 180,
 		description = 'Baked over a campfire: safe to eat.',
 		client = {
-			status = { hunger = 180000 },
 			anim = 'eating',
 			usetime = 3000,
 		},
@@ -589,10 +591,10 @@ return {
 
 	['roasted_pumpkin'] = {
 		label = 'Roasted Pumpkin',
+		satiety = { hunger = 40 },
 		weight = 1200,
 		description = 'Roasted over a campfire: safe to eat, and plenty of it.',
 		client = {
-			status = { hunger = 400000 },
 			anim = 'eating',
 			usetime = 4000,
 		},
@@ -601,10 +603,10 @@ return {
 	-- Radiation (hrp-radiation, PRODUCTION-SERVER#22 / #24)
 	['canned_food'] = {
 		label = 'Canned Food',
+		satiety = { hunger = 20 },
 		weight = 400,
 		description = 'Sealed before the war: safe from radiation.',
 		client = {
-			status = { hunger = 200000 },
 			anim = 'eating',
 			usetime = 2500,
 		},
