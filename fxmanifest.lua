@@ -24,6 +24,7 @@ ox_libs {
 }
 
 server_scripts {
+    '@hrp-metrics/lib/log.lua', -- HrpLog: structured logs (Heritage-RP/PRODUCTION-SERVER docs/dev/logs.md)
     '@oxmysql/lib/MySQL.lua',
     'init.lua'
 }

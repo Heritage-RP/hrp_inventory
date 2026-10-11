@@ -67,23 +67,91 @@ end
 exports('setPlayerInventory', server.setPlayerInventory)
 AddEventHandler('ox_inventory:setPlayerInventory', server.setPlayerInventory)
 
-local registeredDumpsters = {}
+local Dumpsters = require 'modules.dumpsters.shared'
+---@type table<number, number> GetGameTimer() of each player's last bin searched for the first time
+local dumpsterCreatedAt = {}
 
----@param coords vector3
----@return string?
-local function getDumpsterFromCoords(coords)
-	local found
+AddEventHandler('playerDropped', function()
+	dumpsterCreatedAt[source] = nil
+end)
 
-	for i = 1, #registeredDumpsters do
-		local distance = #(coords - registeredDumpsters[i])
+---Bin searched by a player (Héritage RP, PRODUCTION-SERVER#400). Map props are not networked and unknown to the
+---server: a bin is keyed by its rounded coordinates, checked against the player's position.
+---@param source number
+---@param playerPed number
+---@param data any `{ coords = vector3, model = hash }`, a vector3, or an upstream `'dumpster' .. netId` key
+---@param ignoreSecurityChecks boolean?
+---@return OxInventory?, string? accessError
+local function openDumpster(source, playerPed, data, ignoreSecurityChecks)
+	if type(data) == 'string' then
+		-- upstream key of a networked dumpster, still accepted from other resources
+		local right = Inventory(data)
 
-		if distance < 0.1 then
-			found = i
-			break
+		if not right then
+			local netid = data:find('^dumpster%d+$') and tonumber(data:sub(9))
+
+			if not (netid and NetworkGetEntityFromNetworkId(netid) > 0) then
+				HrpLog.business.warn('dumpster search failed', { source = source, key = data, reason = 'unknown network id' })
+				return
+			end
+
+			right = Inventory.Create(data, locale('dumpster'), 'dumpster', 15, 0, 100000, false)
+		end
+
+		HrpLog.business.info('dumpster searched', { source = source, key = data })
+		return right
+	end
+
+	local x, y, z, model = Dumpsters.parse(data)
+	local modelName = model and Dumpsters.name(model)
+
+	if not x then
+		HrpLog.business.warn('dumpster search failed', { source = source, reason = 'invalid payload' })
+		return
+	end
+
+	local key = Dumpsters.key(x, y, z)
+	local right = Inventory(key) or nil
+	local coords = right and right.coords or vector3(x, y, z)
+
+	if not ignoreSecurityChecks then
+		local distance = #(GetEntityCoords(playerPed) - coords)
+
+		if distance > Dumpsters.MAX_DISTANCE then
+			HrpLog.business.warn('dumpster search failed',
+				{ source = source, key = key, model = modelName, reason = 'too far', distance = math.floor(distance * 10 + 0.5) / 10 })
+			return nil, 'inventory_right_access'
 		end
 	end
 
-	return found
+	local created = not right
+
+	if created then
+		if not ignoreSecurityChecks then
+			local now = GetGameTimer()
+
+			if not Dumpsters.canCreate(dumpsterCreatedAt[source], now) then
+				HrpLog.business.warn('dumpster search failed', { source = source, key = key, model = modelName, reason = 'cooldown' })
+				return nil, 'dumpster_cooldown'
+			end
+
+			dumpsterCreatedAt[source] = now
+		end
+
+		right = Inventory.Create(key, locale('dumpster'), 'dumpster', 15, 0, 100000, false)
+
+		if not right then
+			HrpLog.business.error('dumpster search failed', { source = source, key = key, model = modelName, reason = 'inventory not created' })
+			return
+		end
+
+		-- the generic stash check (getClosestStashCoords) then holds every later opening to this distance
+		right.coords = coords
+		right.distance = Dumpsters.MAX_DISTANCE
+	end
+
+	HrpLog.business.info('dumpster searched', { source = source, key = key, model = modelName, created = created })
+	return right
 end
 
 ---@param playerPed number
@@ -139,6 +207,12 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 		if invType == 'stash' then
 			right = Inventory(data, left, ignoreSecurityChecks)
 			if right == false then return false end
+		elseif invType == 'dumpster' then
+			-- before `isDataTable`: the client sends a table (Héritage RP, PRODUCTION-SERVER#400)
+			local accessError
+			right, accessError = openDumpster(source, playerPed, data, ignoreSecurityChecks)
+
+			if accessError then return false, false, accessError end
 		elseif isDataTable then
 			if data.netid then
                 local entity = NetworkGetEntityFromNetworkId(data.netid)
@@ -193,28 +267,6 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 		elseif invType == 'policeevidence' then
 			if ignoreSecurityChecks or server.hasGroup(left, shared.police) then
 				right = Inventory(('evidence-%s'):format(data))
-			end
-		elseif invType == 'dumpster' then
-			if shared.networkdumpsters then
-				local dumpsterId = getDumpsterFromCoords(data)
-				right = dumpsterId and Inventory(('dumpster-%s'):format(dumpsterId))
-
-				if not right then
-					dumpsterId = #registeredDumpsters + 1
-					right = Inventory.Create(('dumpster-%s'):format(dumpsterId), locale('dumpster'), invType, 15, 0, 100000, false)
-					registeredDumpsters[dumpsterId] = data
-				end
-			else
-				---@cast data string
-				right = Inventory(data)
-
-				if not right then
-					local netid = tonumber(data:sub(9))
-
-					if netid and NetworkGetEntityFromNetworkId(netid) > 0 then
-						right = Inventory.Create(data, locale('dumpster'), invType, 15, 0, 100000, false)
-					end
-				end
 			end
 		elseif invType == 'container' then
 			left.containerSlot = data --[[@as number]]

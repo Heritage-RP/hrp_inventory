@@ -115,6 +115,7 @@ end
 local CraftingBenches = require 'modules.crafting.client'
 local Vehicles = lib.load('data.vehicles')
 local Inventory = require 'modules.inventory.client'
+local Dumpsters = require 'modules.dumpsters.shared'
 
 ---@param inv string?
 ---@param data any?
@@ -840,7 +841,7 @@ local function registerCommands()
 			if not shared.target and entityType == 3 then
 				local model = GetEntityModel(entity)
 
-				if Inventory.Dumpsters:includes(model) then
+				if Dumpsters.isDumpster(model) then
 					return Inventory.OpenDumpster(entity)
 				end
 			end

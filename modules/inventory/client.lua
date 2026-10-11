@@ -1,8 +1,10 @@
 if not lib then return end
 
 local Inventory = {}
+local Dumpsters = require 'modules.dumpsters.shared'
 
-Inventory.Dumpsters = lib.array:new(218085040, 666561306, -58485588, -206690185, 1511880420, 682791951)
+-- Héritage RP: street bins, recycling bins and skips too, not only the 6 big dumpsters (PRODUCTION-SERVER#400)
+Inventory.Dumpsters = lib.array:new(table.unpack(Dumpsters.hashes))
 
 if shared.networkdumpsters then
     -- Make sure dumpsters are frozen to ensure persistent position across clients
@@ -15,7 +17,7 @@ if shared.networkdumpsters then
 
             if state.isDumpster == nil then
                 local model = GetEntityModel(object)
-                local isDumpster = Inventory.Dumpsters:includes(model)
+                local isDumpster = Dumpsters.isDumpster(model)
 
                 state.isDumpster = isDumpster
 
@@ -27,24 +29,12 @@ if shared.networkdumpsters then
     end, 3000)
 end
 
+---Map props are not networked: their netId is 0, and the upstream `'dumpster' .. netId` key was refused by the server
+---without a word (PRODUCTION-SERVER#400). The server keys the bin by its coordinates, checked against the player's.
 function Inventory.OpenDumpster(entity)
-    if shared.networkdumpsters then
-        local coords = GetEntityCoords(entity)
-        client.openInventory('dumpster', coords)
-        return
-    end
+    if not entity or entity == 0 or not DoesEntityExist(entity) then return end
 
-    local netId = NetworkGetEntityIsNetworked(entity) and NetworkGetNetworkIdFromEntity(entity)
-
-    if not netId then
-        local coords = GetEntityCoords(entity)
-        entity = GetClosestObjectOfType(coords.x, coords.y, coords.z, 0.1, GetEntityModel(entity), true, true, true)
-        netId = entity ~= 0 and NetworkGetNetworkIdFromEntity(entity)
-    end
-
-    if netId then
-        client.openInventory('dumpster', 'dumpster' .. netId)
-    end
+    client.openInventory('dumpster', { coords = GetEntityCoords(entity), model = GetEntityModel(entity) })
 end
 
 local Utils = require 'modules.utils.client'
