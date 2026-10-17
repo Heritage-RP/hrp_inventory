@@ -117,4 +117,78 @@ end
 
 ItemList.cash = ItemList.money
 
+-- Items declared by other resources (Heritage-RP, PRODUCTION-SERVER#464): see modules/items/declared.lua.
+local Declared = require 'modules.items.declared'
+local declaredBy = {} ---@type table<string, string> item name → declaring resource
+local declaredEnv = { vec3 = vec3, joaat = joaat, exports = exports }
+
+local function reportDeclared(level, message, attrs)
+    if HrpLog then return HrpLog[level](message, attrs) end
+    if level ~= 'info' then warn(('%s: %s'):format(message, json.encode(attrs))) end
+end
+
+---@param resource string
+local function loadDeclared(resource)
+    local files = GetNumResourceMetadata(resource, Declared.METADATA)
+
+    for i = 0, (files or 0) - 1 do
+        local file = GetResourceMetadata(resource, Declared.METADATA, i)
+        local raw = file and LoadResourceFile(resource, file)
+        local ok, decoded = false, nil
+
+        if raw then ok, decoded = pcall(json.decode, raw) end
+
+        if not ok then
+            reportDeclared('error', 'declared items refused', {
+                resource = resource, file = file, problem = raw and 'invalid JSON' or 'file not found (fxmanifest files?)',
+            })
+        else
+            local items, problems = Declared.convert(resource, decoded, declaredEnv)
+            local count = 0
+
+            for name, data in pairs(items) do
+                local allowed, reason = Declared.claim(declaredBy, ItemList[name] ~= nil, resource, name)
+
+                if not allowed then
+                    problems[#problems + 1] = reason
+                else
+                    local previous = ItemList[name]
+                    data.name = name
+                    local success, response = pcall(newItem, data)
+
+                    if not success then
+                        problems[#problems + 1] = ('%s: item "%s": %s'):format(resource, name, response)
+                    else
+                        declaredBy[name] = resource
+                        count += 1
+                        -- the client counts what the player carries: a restarted resource must not reset it
+                        if previous and not isServer then ItemList[name].count = previous.count end
+                    end
+                end
+            end
+
+            for _, problem in ipairs(problems) do
+                reportDeclared('error', 'declared item refused', { resource = resource, file = file, problem = problem })
+            end
+
+            reportDeclared('info', 'declared items loaded', { resource = resource, file = file, items = count })
+        end
+    end
+end
+
+-- The server reads every resource it knows, started or not: the items exist before their resource starts and stay
+-- while it is stopped, so no inventory loses them. The client only reads the resources it runs (their files).
+for i = 0, GetNumResources() - 1 do
+    local resource = GetResourceByFindIndex(i)
+
+    if resource and resource ~= cache.resource and (isServer or GetResourceState(resource) == 'started') then
+        loadDeclared(resource)
+    end
+end
+
+-- A resource (re)started later reloads its file: same items replaced, new ones added.
+AddEventHandler(isServer and 'onResourceStart' or 'onClientResourceStart', function(resource)
+    if resource ~= cache.resource then loadDeclared(resource) end
+end)
+
 return ItemList
