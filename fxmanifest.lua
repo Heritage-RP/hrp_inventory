@@ -44,6 +44,7 @@ files {
     'web/images/c-icons/*.png',
     'web/fonts/*.ttf',
     'modules/**/shared.lua',
+    'modules/items/declared.lua', -- items declared by other resources (PRODUCTION-SERVER#464)
     'modules/**/client.lua',
     'modules/bridge/**/client.lua',
     'data/*.lua',
