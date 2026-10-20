@@ -188,7 +188,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -202,7 +202,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -216,7 +216,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -230,7 +230,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -244,7 +244,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -258,7 +258,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -272,7 +272,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -286,7 +286,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -300,7 +300,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -314,7 +314,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -328,7 +328,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -342,7 +342,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -356,7 +356,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 
@@ -370,7 +370,7 @@ return {
 		},
 		-- R11 (#43): cut a clothing item into cloth scraps (hrp-item-clothes decides, server side)
 		buttons = {
-			{ label = 'Découper', action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
+			{ label = locale('cut_up'), action = function(slot) exports['hrp-item-clothes']:cutClothing(slot) end }
 		}
 	},
 

@@ -8,6 +8,9 @@ import App from './App';
 import './index.scss';
 import { ItemNotificationsProvider } from './components/utils/ItemNotifications';
 import { isEnvBrowser } from './utils/misc';
+import { applyTheme, themeFromUrl } from './theme';
+
+applyTheme(themeFromUrl(window.location.search) ?? 'neutral');
 
 const root = document.getElementById('root');
 

@@ -10,7 +10,7 @@ own and names that file in its fxmanifest:
     {
       "images": "static/items",
       "items": {
-        "wood": { "label": "Wood", "weight": 500, "client": { "export": "hrp-survival.useWood" } }
+        "wood": { "label": "Wood", "weight": 500, "client": { "export": "my-resource.useWood" } }
       }
     }
 

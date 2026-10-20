@@ -46,6 +46,7 @@
   "ui_slot_bracelet": "Bracelet",
   "ui_slot_watch": "Watch",
   "ui_slot_bag": "Bag",
+  "cut_up": "Cut up",
   "using": "Using %s",
   "inventory_setup": "Inventory is ready to use",
   "inventory_player_access": "You can't open your inventory right now",

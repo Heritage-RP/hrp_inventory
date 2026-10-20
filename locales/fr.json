@@ -46,6 +46,7 @@
   "ui_slot_bracelet": "Bracelet",
   "ui_slot_watch": "Montre",
   "ui_slot_bag": "Sac",
+  "cut_up": "Découper",
   "using": "Utilisation %s",
   "inventory_setup": "Inventaire prêt à l’emploi",
   "inventory_player_access": "Vous ne pouvez pas ouvrir l’inventaire actuellement",

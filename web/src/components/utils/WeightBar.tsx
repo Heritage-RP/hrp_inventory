@@ -15,9 +15,9 @@ const colorMixer = (rgbA: number[], rgbB: number[], amountToMix: number) => {
 
 const COLORS = {
   // Colors used - https://materialui.co/flatuicolors
-  primaryColor: [77, 174, 255], // Red (Pomegranate)
-  secondColor: [77, 174, 255], // Green (Nephritis)
-  accentColor: [77, 174, 255], // Orange (Oragne)
+  primaryColor: [231, 76, 60], // Red (Pomegranate)
+  secondColor: [39, 174, 96], // Green (Nephritis)
+  accentColor: [211, 84, 0], // Orange (Oragne)
 };
 
 const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percent, durability }) => {
@@ -40,10 +40,9 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
           visibility: percent > 0 ? 'visible' : 'hidden',
           height: '100%',
           width: `${percent}%`,
-          backgroundColor: color,
+          // a theme may set one fill colour (index.scss, --inv-bar-fill)
+          backgroundColor: `var(--inv-bar-fill, ${color})`,
           transition: `background ${0.3}s ease, width ${0.3}s ease`,
-          borderRadius: '10px',
-          opacity: '0.75',
         }}
       ></div>
     </div>

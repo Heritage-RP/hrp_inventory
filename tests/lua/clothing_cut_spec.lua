@@ -1,4 +1,4 @@
--- Héritage RP checks (PRODUCTION-SERVER#43, refinement R11). Run from the resource folder:
+-- Fork checks (PRODUCTION-SERVER#43, refinement R11; locale label #476). Run from the resource folder:
 --   docker run --rm -v "$PWD":/w -w /w nickblah/lua:5.4 lua tests/lua/clothing_cut_spec.lua
 
 local failures = 0
@@ -8,6 +8,7 @@ end
 
 local cut = {}
 function vec3(x, y, z) return { x = x, y = y, z = z } end -- FXServer global used by a few items
+function locale(key) return 'locale:' .. key end -- ox_lib global (fxmanifest ox_libs 'locale')
 exports = setmetatable({}, {
     __index = function(_, resource)
         return { cutClothing = function(_, slot) cut[#cut + 1] = { resource = resource, slot = slot } end }
@@ -29,7 +30,7 @@ for name, item in pairs(items) do
     if item.server and item.server.export == 'hrp-item-clothes.useClothingItem' then
         clothes = clothes + 1
         local button = item.buttons and item.buttons[1]
-        check(name .. ' has a « Découper » button', button and button.label == 'Découper' and type(button.action) == 'function')
+        check(name .. ' has a cut-up button, label from the locales', button and button.label == 'locale:cut_up' and type(button.action) == 'function')
         if button and type(button.action) == 'function' then
             cut = {}
             button.action(7)
@@ -39,6 +40,14 @@ for name, item in pairs(items) do
     end
 end
 check('the 14 clothing items are covered', clothes == 14)
+
+-- the label is a locale key (PRODUCTION-SERVER#476): English and French texts
+for lang, text in pairs({ en = 'Cut up', fr = 'Découper' }) do
+    local f = assert(io.open(('locales/%s.json'):format(lang)))
+    local json = f:read('a')
+    f:close()
+    check(('locales/%s.json: cut_up = %s'):format(lang, text), json:find('"cut_up": "' .. text .. '"', 1, true) ~= nil)
+end
 
 if failures > 0 then
     io.write(failures, ' failure(s)\n')
