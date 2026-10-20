@@ -7,21 +7,10 @@ A complete inventory system for FiveM, implementing items, weapons, shops, and m
 ![](https://img.shields.io/github/contributors/communityox/ox_inventory?logo=github)
 ![](https://img.shields.io/github/v/release/communityox/ox_inventory?logo=github)
 
-## Héritage RP fork
+## Fork
 
-- **Phantom weapon** (PRODUCTION-SERVER#208): a `currentWeapon` that is only a leftover (disarmed but never cleared,
-  item gone, no longer in the ped's hands) is cleared before an item use is refused for being armed
-  (`modules/weapon/shared.lua`, `dropPhantomWeapon` in `client.lua`); `ox_inventory:clearWeapons` resets it too.
-- `allowArmed` on items used without an ox_inventory animation: lore documents (and `animal_bait`, declared by its
-  resource).
-- **Declared items** (PRODUCTION-SERVER#464): `data/items.lua` keeps the base items only. A resource that brings items
-  names a JSON file in its fxmanifest (`hrp_inventory_items 'items.json'`, also listed in `files` with its images) and
-  the inventory loads it (`modules/items/declared.lua`): same fields as `data/items.lua`, `prop.pos` / `rot` as
-  `[x, y, z]`, buttons as `{ "label", "export" }`, images from the resource's `images` folder
-  (`nui://<resource>/<images>/<name>.png`). The server reads every resource it knows, started or not, so items exist
-  before their resource starts and stay while it is stopped; a restarted resource reloads its file. A base item or
-  another resource's item is never redefined; every refused entry is logged.
-- Tests: `tests/run.sh` (Lua 5.4 in docker: `weapon_state_spec`, `declared_items_spec`, …).
+Fork of ox_inventory for the core of Heritage-RP/PRODUCTION-SERVER: its patches, all generic, are listed in
+[PATCHES.md](PATCHES.md).
 
 ## 📚 Documentation
 

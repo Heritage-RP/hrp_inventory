@@ -98,7 +98,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
                     />
                   ))}
                 </div>
-                <img style={{ height: '41rem' }} src="nui://ox_inventory/web/images/char.png" alt="Character Image Missing (Read Docs)" />
+                <img style={{ height: '41rem' }} src="../images/char.png" alt="" />
 
                 <div className='Clothing2'>
                   {inventory.items.slice(37, 44).map((item, index) => (

@@ -11,6 +11,7 @@ import DragPreview from './components/utils/DragPreview';
 import { fetchNui } from './utils/fetchNui';
 import { useDragDropManager } from 'react-dnd';
 import KeyPress from './components/utils/KeyPress';
+import { applyTheme } from './theme';
 
 debugData([
   {
@@ -96,13 +97,17 @@ const App: React.FC = () => {
     items: typeof Items;
     leftInventory: Inventory;
     imagepath: string;
-  }>('init', ({ locale, items, leftInventory, imagepath }) => {
+    theme?: string;
+  }>('init', ({ locale, items, leftInventory, imagepath, theme }) => {
     for (const name in locale) Locale[name] = locale[name];
     for (const name in items) Items[name] = items[name];
 
+    if (theme !== undefined) applyTheme(theme);
     setImagePath(imagepath);
     dispatch(setupInventory({ leftInventory }));
   });
+
+  useNuiEvent<string>('setTheme', applyTheme);
 
   fetchNui('uiLoaded', {});
 

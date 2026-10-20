@@ -152,9 +152,9 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             : undefined,
         opacity: isDragging ? 0.4 : 1.0,
         backgroundImage: isClothingSlot && (!item?.name)
-          ? `url(nui://ox_inventory/web/images/c-icons/${item.slot}.png)`
+          ? `url(../images/c-icons/${item.slot}.png)` // relative to web/build/index.html
           : `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'})`,
-        border: isOver ? '1px solid rgba(255,255,255,0.4)' : '',
+        border: isOver ? 'var(--inv-slot-drop-border)' : '',
         backgroundSize: isClothingSlot ? '4.5vh' : '5.5vh'
       }}
     >

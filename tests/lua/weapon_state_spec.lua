@@ -44,8 +44,9 @@ do
     local source = f:read('a'):gsub('`[^`\n]*`', '0')
     f:close()
     _G.vec3 = function(x, y, z) return { x = x, y = y, z = z } end
+    _G.locale = function(key) return key end -- ox_lib global (fxmanifest ox_libs 'locale')
     local items = assert(load(source, '=data/items.lua'))()
-    -- animal_bait lives in hrp-animal-riding/items.json since #464 (its tests check allowArmed)
+    -- animal_bait is declared by its own resource since #464 (its tests check allowArmed)
     for _, name in ipairs({ 'blank_sheet', 'blank_book', 'lore_document' }) do
         check(name .. ' has allowArmed', items[name] and items[name].allowArmed == true)
     end

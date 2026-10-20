@@ -6,6 +6,7 @@ require 'modules.interface.client'
 local Utils = require 'modules.utils.client'
 local Weapon = require 'modules.weapon.client'
 local WeaponState = require 'modules.weapon.shared'
+local Theme = require 'modules.theme.shared'
 local currentWeapon
 
 exports('getCurrentWeapon', function()
@@ -14,6 +15,11 @@ end)
 
 RegisterNetEvent('ox_inventory:disarm', function(noAnim)
 	currentWeapon = Weapon.Disarm(currentWeapon, noAnim)
+end)
+
+-- fork patch (PRODUCTION-SERVER#476): a server switching `hrp_ui_theme` restyles the open page
+AddConvarChangeListener(Theme.CONVAR, function()
+	SendNUIMessage({ action = 'setTheme', data = Theme.resolve(GetConvar(Theme.CONVAR, Theme.DEFAULT)) })
 end)
 
 RegisterNetEvent('ox_inventory:clearWeapons', function()
@@ -1354,7 +1360,9 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 				items = PlayerData.inventory,
 				maxWeight = shared.playerweight,
 			},
-			imagepath = client.imagepath
+			imagepath = client.imagepath,
+			-- fork patch (PRODUCTION-SERVER#476): UI theme from the replicated convar, modules/theme/shared.lua
+			theme = Theme.resolve(GetConvar(Theme.CONVAR, Theme.DEFAULT))
 		}
 	})
 
