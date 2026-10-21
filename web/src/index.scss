@@ -1,9 +1,11 @@
-// Two themes, picked at runtime by `data-theme` on <html> (src/theme.ts, from the client's `hrp_ui_theme` convar):
+// Two looks, picked at runtime by `data-theme` on <html> (src/theme.ts, from the client's `hrp_ui_theme` convar):
 // - `neutral` (default): the upstream ox_inventory look — its colours, fonts, borders and radii;
-// - `heritage`: the green terminal look of the fork.
+// - any other theme, declared by a resource of the server (`hrp_ui_theme '<path>/<name>.css'`, PRODUCTION-SERVER#520):
+//   the themed look of the fork, coloured by the `--hrp-*` tokens of that theme's stylesheet (loaded by src/theme.ts).
 // The layout added by the fork (clothing slots, header with icons and weight bar, amount field and buttons under the
-// grids) is shared by both themes. Skin values are the custom properties below; what only the `heritage` theme has
-// (glows, upper case, letter spacing, hover effects, scrollbar) is scoped under `:root[data-theme='heritage']`.
+// grids) is shared by both looks. Skin values are the custom properties below; what only the themed look has (glows,
+// upper case, letter spacing, hover effects, scrollbar) is scoped under `$themed`. A theme's stylesheet may set any
+// `--inv-*` itself under `:root[data-theme='<name>']`: loaded after this file, its values win.
 
 $gridCols: 5;
 $gridSize: 10.2vh;
@@ -17,14 +19,7 @@ $secondaryColorHighlight: #33343f;
 $secondaryColorDark: rgba(12, 12, 12, 0.8);
 $upstreamBorder: 1px inset rgba(0, 0, 0, 0.2);
 
-// Terminal palette (heritage)
-$termGreen: #1aff80;
-$termGreenDim: #0d7a3e;
-$termGlow: rgba(26, 255, 128, 0.6);
-$termFont: 'Share Tech Mono', 'Courier New', monospace;
-$termMono: 'Share Tech Mono', monospace;
-
-$terminal: ":root[data-theme='heritage']";
+$themed: ":root:not([data-theme='neutral'])";
 
 :root {
   --inv-body-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
@@ -91,70 +86,83 @@ $terminal: ":root[data-theme='heritage']";
   --inv-icon-radius: 4px;
 }
 
-#{$terminal} {
-  --inv-body-font: #{$termFont};
-  --inv-font: #{$termFont};
-  --inv-mono: #{$termMono};
-  --inv-app-text: #{$termGreen};
-  --inv-text: #{$termGreen};
-  --inv-control-text: #{$termGreen};
+#{$themed} {
+  --inv-body-font: var(--hrp-font-body);
+  --inv-font: var(--hrp-font-body);
+  --inv-mono: var(--hrp-font-mono);
+  --inv-app-text: var(--hrp-fg);
+  --inv-text: var(--hrp-fg);
+  --inv-control-text: var(--hrp-fg);
 
-  --inv-menu-bg: rgba(5, 15, 8, 0.7);
-  --inv-menu-border: 1px solid rgba(26, 255, 128, 0.3);
-  --inv-menu-item-radius: 2px;
-  --inv-menu-item-hover: rgba(26, 255, 128, 0.15);
+  --inv-menu-bg: var(--hrp-bg);
+  --inv-menu-border: 1px solid var(--hrp-border);
+  --inv-menu-item-radius: var(--hrp-radius);
+  --inv-menu-item-hover: var(--hrp-bg-raised);
 
-  --inv-input-bg: rgba(26, 255, 128, 0.05);
-  --inv-input-focus-bg: rgba(26, 255, 128, 0.1);
-  --inv-input-border: 1px solid rgba(26, 255, 128, 0.3);
-  --inv-control-radius: 2px;
-  --inv-button-bg: rgba(26, 255, 128, 0.1);
-  --inv-button-hover-bg: rgba(26, 255, 128, 0.2);
-  --inv-button-border: 1px solid rgba(26, 255, 128, 0.4);
+  --inv-input-bg: var(--hrp-bg-sunken);
+  --inv-input-focus-bg: var(--hrp-bg-raised);
+  --inv-input-border: 1px solid var(--hrp-border);
+  --inv-control-radius: var(--hrp-radius);
+  --inv-button-bg: var(--hrp-bg-raised);
+  --inv-button-hover-bg: var(--hrp-header-bg);
+  --inv-button-border: 1px solid var(--hrp-border-strong);
   --inv-button-weight: normal;
 
-  --inv-dialog-bg: linear-gradient(135deg, rgba(10, 15, 10, 0.98) 0%, rgba(5, 10, 5, 0.99) 100%);
-  --inv-dialog-radius: 2px;
-  --inv-dialog-overlay: rgba(0, 0, 0, 0.7);
-  --inv-dialog-close-hover: rgba(26, 255, 128, 0.2);
-  --inv-divider: rgba(26, 255, 128, 0.2);
-  --inv-help-button-border: 1px solid rgba(26, 255, 128, 0.4);
-  --inv-help-button-radius: 2px;
-  --inv-help-button-bg: rgba(26, 255, 128, 0.1);
-  --inv-help-button-hover-bg: rgba(26, 255, 128, 0.2);
-  --inv-help-button-fill: #{$termGreen};
+  --inv-dialog-bg: var(--hrp-bg);
+  --inv-dialog-radius: var(--hrp-radius);
+  --inv-dialog-overlay: var(--hrp-overlay);
+  --inv-dialog-close-hover: var(--hrp-bg-raised);
+  --inv-divider: var(--hrp-border);
+  --inv-help-button-border: 1px solid var(--hrp-border-strong);
+  --inv-help-button-radius: var(--hrp-radius);
+  --inv-help-button-bg: var(--hrp-bg-raised);
+  --inv-help-button-hover-bg: var(--hrp-header-bg);
+  --inv-help-button-fill: var(--hrp-fg);
 
-  --inv-slot-bg: rgba(26, 255, 128, 0.03);
-  --inv-slot-border: 1px solid rgba(26, 255, 128, 0.25);
-  --inv-slot-radius: 2px;
-  --inv-slot-drop-border: 1px solid rgba(255, 255, 255, 0.4);
-  --inv-clothing-bg: rgba(26, 255, 128, 0.05);
-  --inv-clothing-border: 1px dashed rgba(26, 255, 128, 0.4);
-  --inv-clothing-label-bg: rgba(10, 15, 10, 0.7);
-  --inv-label-bg: rgba(26, 255, 128, 0.08);
+  --inv-slot-bg: var(--hrp-bg-sunken);
+  --inv-slot-border: 1px solid var(--hrp-border);
+  --inv-slot-radius: var(--hrp-radius);
+  --inv-slot-drop-border: 1px solid var(--hrp-border-strong);
+  --inv-clothing-bg: var(--hrp-bg-sunken);
+  --inv-clothing-border: 1px dashed var(--hrp-border-strong);
+  --inv-clothing-label-bg: var(--hrp-bg);
+  --inv-label-bg: var(--hrp-bg-raised);
   --inv-label-radius: 0;
   --inv-label-border-top: none;
   --inv-label-size: 10px;
-  --inv-number-bg: rgba(26, 255, 128, 0.15);
-  --inv-number-text: #{$termGreen};
-  --inv-number-radius: 2px;
+  --inv-number-bg: var(--hrp-bg-raised);
+  --inv-number-text: var(--hrp-fg);
+  --inv-number-radius: var(--hrp-radius);
 
-  --inv-tooltip-bg: linear-gradient(135deg, rgba(10, 15, 10, 0.95) 0%, rgba(5, 10, 5, 0.98) 100%);
-  --inv-tooltip-border: 1px solid rgba(26, 255, 128, 0.4);
-  --inv-tooltip-radius: 2px;
+  --inv-tooltip-bg: var(--hrp-bg);
+  --inv-tooltip-border: 1px solid var(--hrp-border-strong);
+  --inv-tooltip-radius: var(--hrp-radius);
 
-  --inv-notify-bg: rgba(26, 255, 128, 0.15);
-  --inv-notify-radius: 2px;
+  --inv-notify-bg: var(--hrp-bg-raised);
+  --inv-notify-radius: var(--hrp-radius);
 
-  --inv-bar-bg: rgba(10, 15, 10, 0.7);
-  --inv-bar-border: 1px solid rgba(26, 255, 128, 0.3);
-  --inv-bar-radius: 2px;
-  --inv-durability-bg: rgba(10, 15, 10, 0.7);
+  --inv-bar-bg: var(--hrp-bg-sunken);
+  --inv-bar-border: 1px solid var(--hrp-border);
+  --inv-bar-radius: var(--hrp-radius);
+  --inv-durability-bg: var(--hrp-bg-sunken);
   // the weight / durability fill (WeightBar.tsx) is one colour instead of the upstream red → orange → green mix
-  --inv-bar-fill: rgb(77, 174, 255);
+  --inv-bar-fill: var(--hrp-accent);
 
-  --inv-icon-bg: rgba(26, 255, 128, 0.2);
-  --inv-icon-radius: 2px;
+  --inv-icon-bg: var(--hrp-bg-raised);
+  --inv-icon-radius: var(--hrp-radius);
+
+  // what the themed rules below draw with: accent, glows, lines
+  --inv-accent: var(--hrp-accent);
+  --inv-accent-dim: var(--hrp-fg-muted);
+  --inv-glow: var(--hrp-accent-glow);
+  --inv-line: var(--hrp-border);
+  --inv-line-faint: var(--hrp-border);
+  --inv-line-strong: var(--hrp-border-strong);
+  --inv-halo: var(--hrp-accent-glow);
+  --inv-halo-faint: var(--hrp-accent-glow);
+  --inv-tint-faint: transparent;
+  --inv-panel-bg: var(--hrp-bg);
+  --inv-placeholder: var(--hrp-fg-muted);
 }
 
 body {
@@ -176,11 +184,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-:root:not([data-theme='heritage']) ::-webkit-scrollbar {
+:root[data-theme='neutral'] ::-webkit-scrollbar {
   display: none;
 }
 
-#{$terminal} {
+#{$themed} {
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -193,13 +201,13 @@ code {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: $termGreenDim;
-    border: 1px solid $termGreen;
+    background: var(--inv-accent-dim);
+    border: 1px solid var(--inv-accent);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: $termGreen;
+    background: var(--inv-accent);
   }
 }
 
@@ -260,13 +268,13 @@ input[type='number']::-webkit-outer-spin-button {
     cursor: pointer;
   }
 
-  #{$terminal} & {
-    font-family: $termMono;
+  #{$themed} & {
+    font-family: var(--inv-mono);
     text-transform: uppercase;
     letter-spacing: 1px;
 
     &:hover {
-      text-shadow: 0 0 8px $termGlow;
+      text-shadow: 0 0 8px var(--inv-glow);
     }
   }
 }
@@ -306,11 +314,11 @@ button:active {
   gap: 40px;
   position: relative;
 
-  #{$terminal} & {
-    background: linear-gradient(135deg, rgba(10, 15, 10, 0.65) 0%, rgba(5, 10, 5, 0.7) 100%);
-    border: 1px solid rgba(26, 255, 128, 0.3);
+  #{$themed} & {
+    background: var(--inv-panel-bg);
+    border: 1px solid var(--inv-line);
     box-shadow:
-      inset 0 0 100px rgba(26, 255, 128, 0.03),
+      inset 0 0 100px var(--inv-tint-faint),
       0 0 30px rgba(0, 0, 0, 0.6);
   }
 }
@@ -378,27 +386,27 @@ button:active {
     }
   }
 
-  #{$terminal} & {
+  #{$themed} & {
     .inventory-control-input {
-      text-shadow: 0 0 5px $termGlow;
+      text-shadow: 0 0 5px var(--inv-glow);
 
       &:focus-within {
-        border-color: $termGreen;
-        box-shadow: 0 0 10px $termGlow;
+        border-color: var(--inv-accent);
+        box-shadow: 0 0 10px var(--inv-glow);
       }
 
       &::placeholder {
-        color: rgba(26, 255, 128, 0.4);
+        color: var(--inv-placeholder);
       }
     }
 
     .inventory-control-button {
       letter-spacing: 1px;
-      text-shadow: 0 0 5px $termGlow;
+      text-shadow: 0 0 5px var(--inv-glow);
 
       &:hover {
-        border-color: $termGreen;
-        box-shadow: 0 0 15px $termGlow;
+        border-color: var(--inv-accent);
+        box-shadow: 0 0 15px var(--inv-glow);
       }
     }
   }
@@ -418,10 +426,10 @@ button:active {
   border-radius: var(--inv-dialog-radius);
   gap: 16px;
 
-  #{$terminal} & {
-    border: 1px solid rgba(26, 255, 128, 0.4);
-    box-shadow: 0 0 30px rgba(26, 255, 128, 0.2);
-    font-family: $termMono;
+  #{$themed} & {
+    border: 1px solid var(--inv-line-strong);
+    box-shadow: 0 0 30px var(--inv-halo-faint);
+    font-family: var(--inv-mono);
   }
 }
 
@@ -436,11 +444,11 @@ button:active {
   align-items: center;
   font-size: 18px;
 
-  #{$terminal} & {
+  #{$themed} & {
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 8px $termGlow;
-    border-bottom: 1px solid rgba(26, 255, 128, 0.3);
+    text-shadow: 0 0 8px var(--inv-glow);
+    border-bottom: 1px solid var(--inv-line);
     padding-bottom: 10px;
   }
 }
@@ -494,8 +502,8 @@ button:active {
     cursor: pointer;
   }
 
-  #{$terminal} &:hover {
-    box-shadow: 0 0 15px $termGlow;
+  #{$themed} &:hover {
+    box-shadow: 0 0 15px var(--inv-glow);
   }
 }
 
@@ -562,12 +570,12 @@ button:active {
   border-radius: var(--inv-slot-radius);
   border: var(--inv-slot-border);
 
-  #{$terminal} & {
+  #{$themed} & {
     transition: all 0.2s ease;
 
     &:hover {
-      border-color: rgba(26, 255, 128, 0.5);
-      box-shadow: 0 0 10px rgba(26, 255, 128, 0.2);
+      border-color: var(--inv-line-strong);
+      box-shadow: 0 0 10px var(--inv-halo-faint);
     }
   }
 }
@@ -583,12 +591,12 @@ button:active {
   border-radius: var(--inv-slot-radius);
   border: var(--inv-clothing-border);
 
-  #{$terminal} & {
+  #{$themed} & {
     transition: all 0.2s ease;
 
     &:hover {
-      border-color: $termGreen;
-      box-shadow: 0 0 12px rgba(26, 255, 128, 0.3);
+      border-color: var(--inv-accent);
+      box-shadow: 0 0 12px var(--inv-halo);
     }
   }
 }
@@ -607,9 +615,9 @@ button:active {
   padding: 2px 0;
   border-radius: 0 0 var(--inv-slot-radius) var(--inv-slot-radius);
 
-  #{$terminal} & {
+  #{$themed} & {
     letter-spacing: 1px;
-    text-shadow: 0 0 5px $termGlow;
+    text-shadow: 0 0 5px var(--inv-glow);
   }
 }
 
@@ -632,9 +640,9 @@ button:active {
   font-family: var(--inv-mono);
   font-size: var(--inv-label-size);
 
-  #{$terminal} & {
+  #{$themed} & {
     letter-spacing: 0.5px;
-    text-shadow: 0 0 3px $termGlow;
+    text-shadow: 0 0 3px var(--inv-glow);
   }
 }
 
@@ -652,8 +660,8 @@ button:active {
   position: absolute;
   border-radius: var(--inv-number-radius);
 
-  #{$terminal} & {
-    text-shadow: 0 0 5px $termGlow;
+  #{$themed} & {
+    text-shadow: 0 0 5px var(--inv-glow);
   }
 }
 
@@ -734,11 +742,11 @@ button:active {
     font-weight: 400;
   }
 
-  #{$terminal} & {
-    box-shadow: 0 0 15px rgba(26, 255, 128, 0.2);
+  #{$themed} & {
+    box-shadow: 0 0 15px var(--inv-halo-faint);
 
     p {
-      text-shadow: 0 0 5px $termGlow;
+      text-shadow: 0 0 5px var(--inv-glow);
     }
   }
 }
@@ -754,8 +762,8 @@ button:active {
     font-weight: 400;
   }
 
-  #{$terminal} & {
-    border-bottom: 1px solid rgba(26, 255, 128, 0.2);
+  #{$themed} & {
+    border-bottom: 1px solid var(--inv-line-faint);
     padding-bottom: 5px;
     margin-bottom: 5px;
 
@@ -850,12 +858,12 @@ button:active {
     font-weight: 600;
   }
 
-  #{$terminal} & {
-    border: 1px solid rgba(26, 255, 128, 0.3);
+  #{$themed} & {
+    border: 1px solid var(--inv-line);
     border-bottom: none;
 
     p {
-      text-shadow: 0 0 5px $termGlow;
+      text-shadow: 0 0 5px var(--inv-glow);
       letter-spacing: 1px;
     }
   }
@@ -872,8 +880,8 @@ button:active {
   height: 3px;
   overflow: hidden;
 
-  #{$terminal} & {
-    border: 1px solid rgba(26, 255, 128, 0.2);
+  #{$themed} & {
+    border: 1px solid var(--inv-line-faint);
     border-radius: 1px;
   }
 }
@@ -888,7 +896,7 @@ button:active {
   border-radius: var(--inv-bar-radius);
 }
 
-#{$terminal} {
+#{$themed} {
   .weight-bar > div,
   .durability-bar > div {
     border-radius: 10px;
@@ -964,8 +972,8 @@ button:active {
   margin-bottom: 6px;
   color: var(--inv-text);
 
-  #{$terminal} & {
-    text-shadow: 0 0 5px $termGlow;
+  #{$themed} & {
+    text-shadow: 0 0 5px var(--inv-glow);
   }
 }
 
@@ -975,10 +983,10 @@ button:active {
   padding-right: 10px;
   color: var(--inv-text);
 
-  #{$terminal} & {
+  #{$themed} & {
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 8px $termGlow;
+    text-shadow: 0 0 8px var(--inv-glow);
   }
 }
 
@@ -995,9 +1003,9 @@ button:active {
   height: 20px;
   color: var(--inv-text);
 
-  #{$terminal} & {
-    box-shadow: 0px 2px 20px 4px rgba(26, 255, 128, 0.3);
-    border: 1px solid rgba(26, 255, 128, 0.4);
+  #{$themed} & {
+    box-shadow: 0px 2px 20px 4px var(--inv-halo);
+    border: 1px solid var(--inv-line-strong);
   }
 }
 
@@ -1031,10 +1039,10 @@ button:active {
   padding-left: 6px;
   color: var(--inv-text);
 
-  #{$terminal} & {
+  #{$themed} & {
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px $termGlow;
+    text-shadow: 0 0 10px var(--inv-glow);
   }
 }
 
