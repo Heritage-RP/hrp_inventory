@@ -17,9 +17,9 @@ RegisterNetEvent('ox_inventory:disarm', function(noAnim)
 	currentWeapon = Weapon.Disarm(currentWeapon, noAnim)
 end)
 
--- fork patch (PRODUCTION-SERVER#476): a server switching `hrp_ui_theme` restyles the open page
+-- fork patch (PRODUCTION-SERVER#476, #520): a server switching `hrp_ui_theme` restyles the open page
 AddConvarChangeListener(Theme.CONVAR, function()
-	SendNUIMessage({ action = 'setTheme', data = Theme.resolve(GetConvar(Theme.CONVAR, Theme.DEFAULT)) })
+	SendNUIMessage({ action = 'setTheme', data = Theme.current() })
 end)
 
 RegisterNetEvent('ox_inventory:clearWeapons', function()
@@ -1361,8 +1361,9 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 				maxWeight = shared.playerweight,
 			},
 			imagepath = client.imagepath,
-			-- fork patch (PRODUCTION-SERVER#476): UI theme from the replicated convar, modules/theme/shared.lua
-			theme = Theme.resolve(GetConvar(Theme.CONVAR, Theme.DEFAULT))
+			-- fork patch (PRODUCTION-SERVER#476, #520): UI theme from the replicated convar and the resource declaring
+			-- it, modules/theme/shared.lua
+			theme = Theme.current()
 		}
 	})
 
