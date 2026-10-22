@@ -42,3 +42,104 @@
 - ziptie
 
 For more images, see [this thread](https://forum.cfx.re/t/inventory-icons-pack-for-rp-server-hq-draw-24k-cloth-l-1400-objects/5203350) and get a **10%** discount when using creator code `ox10`.
+
+## Pixel icons (Heritage-RP fork, PRODUCTION-SERVER#242)
+
+The files below replace the images above, or fill a missing one, with the pixel art set
+[SwisserDev/fivem-icons-pixel](https://github.com/SwisserDev/fivem-icons-pixel) (CC0 1.0, `png-256/`), renamed to the
+inventory's file name. Every `at_skin_*` component shows the spray paint can. `WEAPON_BATTLERIFLE`, `WEAPON_SNOWLAUNCHER`
+and `WEAPON_TACTICALRIFLE` had no image: they borrow `WEAPON_HEAVYRIFLE`, `WEAPON_GRENADELAUNCHER` and
+`WEAPON_CARBINERIFLE` (the set has no firearm). `tests/lua/item_images_spec.lua` fails on an item without an image.
+
+- WEAPON_BZGAS
+- WEAPON_CROWBAR
+- WEAPON_FIREEXTINGUISHER
+- WEAPON_FLARE
+- WEAPON_FLASHLIGHT
+- WEAPON_HAMMER
+- WEAPON_HATCHET
+- WEAPON_KNIFE
+- WEAPON_METALDETECTOR
+- WEAPON_NIGHTSTICK
+- WEAPON_PETROLCAN
+- WEAPON_SMOKEGRENADE
+- WEAPON_STUNGUN
+- WEAPON_TEARGAS
+- WEAPON_WRENCH
+- ammo-22
+- ammo-38
+- ammo-44
+- ammo-45
+- ammo-50
+- ammo-9
+- ammo-beanbag
+- ammo-firework
+- ammo-flare
+- ammo-grenade
+- ammo-heavysniper
+- ammo-musket
+- ammo-rifle
+- ammo-rifle2
+- ammo-shotgun
+- ammo-sniper
+- armour
+- at_barrel
+- at_clip_drum
+- at_clip_extended
+- at_clip_extended2
+- at_compensator
+- at_flashlight
+- at_grip
+- at_muzzle_bell
+- at_muzzle_fat
+- at_muzzle_flat
+- at_muzzle_heavy
+- at_muzzle_precision
+- at_muzzle_slanted
+- at_muzzle_split
+- at_muzzle_squared
+- at_muzzle_tactical
+- at_scope_advanced
+- at_scope_holo
+- at_scope_large
+- at_scope_macro
+- at_scope_medium
+- at_scope_nv
+- at_scope_small
+- at_scope_thermal
+- at_suppressor
+- bag
+- bandage
+- black_money
+- blank_book
+- blank_sheet
+- bodyarmor
+- bracelet
+- burger
+- card_bank
+- card_id
+- chain
+- cloth_scrap
+- clothing
+- crafting_recipe_note
+- earrings
+- firstaid
+- garbage
+- glasses
+- gloves
+- hat
+- jacket
+- lockpick
+- lore_document
+- mask
+- money
+- mustard
+- paperbag
+- parachute
+- phone
+- radio
+- scrapmetal
+- shoes
+- sprunk
+- watch
+- water
