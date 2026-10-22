@@ -380,20 +380,18 @@ return {
 		stack = true,
 		close = true,
 		description = 'A first aid kit used to revive downed players',
-		client = { image = 'medikit.png' }, -- provisional image (PRODUCTION-SERVER#328)
 	},
 
 	-- Lore documents (hrp-lore, PRODUCTION-SERVER#203): a blank item opens the editor and is consumed once written;
 	-- lore_document carries metadata.docId, label (title), description and weight set by hrp-lore.
 	-- allowArmed: reading and writing open a UI without animation, so a weapon in hand must not block them
-	-- (PRODUCTION-SERVER#208). Images: provisional notebook (PRODUCTION-SERVER#328).
+	-- (PRODUCTION-SERVER#208).
 	['blank_sheet'] = {
 		label = 'Blank Sheet',
 		weight = 10,
 		consume = 0,
 		description = 'A blank sheet of paper. Use it to write.',
 		allowArmed = true,
-		client = { image = 'crafting_recipe_note.png' },
 		server = { export = 'hrp-lore.useBlank' },
 	},
 
@@ -403,7 +401,6 @@ return {
 		consume = 0,
 		description = 'A notebook with empty pages. Use it to write.',
 		allowArmed = true,
-		client = { image = 'crafting_recipe_note.png' },
 		server = { export = 'hrp-lore.useBlank' },
 	},
 
@@ -413,7 +410,6 @@ return {
 		consume = 0,
 		description = 'Use it to read.',
 		allowArmed = true,
-		client = { image = 'crafting_recipe_note.png' },
 		server = { export = 'hrp-lore.useDocument' },
 	},
 }
