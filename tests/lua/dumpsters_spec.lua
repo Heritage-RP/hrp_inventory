@@ -10,7 +10,7 @@ local function read(path)
     local file = assert(io.open(path))
     local text = file:read('a')
     file:close()
-    return text
+    return (text:gsub('\r\n', '\n'))   -- a Windows checkout (core.autocrlf) is CRLF: the patterns expect \n
 end
 
 local chunk, err = loadfile('modules/dumpsters/shared.lua')

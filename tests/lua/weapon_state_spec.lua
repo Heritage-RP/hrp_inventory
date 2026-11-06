@@ -25,7 +25,7 @@ check('unknown count does not decide alone', WeaponState.isPhantom(equipped(0), 
 -- 3. client.lua wiring: clearWeapons clears currentWeapon, both refusal paths clear a leftover first
 do
     local f = assert(io.open('client.lua', 'r'))
-    local client = f:read('a')
+    local client = f:read('a'):gsub('\r\n', '\n')   -- a Windows checkout (core.autocrlf) is CRLF
     f:close()
     check('clearWeapons resets currentWeapon',
         client:find("RegisterNetEvent%('ox_inventory:clearWeapons', function%(%)%s+Weapon.ClearAll%(currentWeapon%).-currentWeapon = nil%s+end%)") ~= nil)
